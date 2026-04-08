@@ -17,6 +17,12 @@ build/
 *.swp
 *.swo
 
+# Model weights
+*.pt
+*.pth
+*.onnx
+
 # OS
 .DS_Store
+._*
 Thumbs.db
