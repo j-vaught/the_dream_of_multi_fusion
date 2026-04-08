@@ -44,7 +44,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--box-thresh", type=float, default=0.25)
     p.add_argument("--text-thresh", type=float, default=0.25)
     p.add_argument("--dino-prompt", default="boat . buoy . vessel . navigation buoy .")
-    p.add_argument("--max-aspect-ratio", type=float, default=3.0,
+    p.add_argument("--max-aspect-ratio", type=float, default=1.5,
                     help="Skip padded crops with width/height ratio above this (filters shoreline)")
     p.add_argument("--max-frames", type=int, default=0, help="0 = all frames")
     p.add_argument("--fps", type=int, default=20)
