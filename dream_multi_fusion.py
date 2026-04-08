@@ -245,6 +245,9 @@ def main() -> None:
     video_dir = out_dir / "videos"
 
     for d in [vid1_dir, vid2_dir, vid3_dir, video_dir]:
+        if d.exists():
+            for f in d.glob("*.png"):
+                f.unlink()
         d.mkdir(parents=True, exist_ok=True)
 
     # Load frames.jsonl
