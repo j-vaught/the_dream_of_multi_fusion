@@ -244,7 +244,10 @@ def main() -> None:
     vid3_dir = out_dir / "vid3_dino"
     video_dir = out_dir / "videos"
 
-    for d in [vid1_dir, vid2_dir, vid3_dir, video_dir]:
+    crops_dir = out_dir / "crops"
+    detections_jsonl = out_dir / "detections.jsonl"
+
+    for d in [vid1_dir, vid2_dir, vid3_dir, video_dir, crops_dir]:
         if d.exists():
             for f in d.glob("[0-9]*.*"):
                 f.unlink()
@@ -271,6 +274,8 @@ def main() -> None:
 
     rgb_dir = Path(args.rgb_dir)
     points_dir = Path(args.points_dir)
+
+    det_file = detections_jsonl.open("w", encoding="utf-8")
 
     for idx, rec in enumerate(frames):
         cf = int(rec["camera_frame"])
@@ -306,6 +311,7 @@ def main() -> None:
         # --- Video 3: DINO-labeled crops at full resolution ---
         crop_images = []
         crop_labels = []
+        frame_det_records = []
 
         for det in detections:
             x1, y1, x2, y2 = det["bbox_xyxy"]
@@ -323,6 +329,10 @@ def main() -> None:
 
             crop = img.crop((cx1, cy1, cx2, cy2))
 
+            # Save the raw crop
+            crop_name = f"{idx:06d}_T{det['track_id']}.jpg"
+            crop.save(crops_dir / crop_name, quality=95)
+
             # Run DINO on the full-resolution crop
             dino_dets = run_dino(processor, model, crop, args.dino_prompt,
                                  args.box_thresh, args.text_thresh, device)
@@ -333,6 +343,27 @@ def main() -> None:
             n_boats = sum(1 for d in dino_dets if d["label"] == "boat")
             n_buoys = sum(1 for d in dino_dets if d["label"] == "buoy")
             crop_labels.append(f"T{det['track_id']}  boats:{n_boats} buoys:{n_buoys}")
+
+            # Record detection metadata
+            frame_det_records.append({
+                "track_id": det["track_id"],
+                "radar_bbox_xyxy": [x1, y1, x2, y2],
+                "padded_bbox_xyxy": [cx1, cy1, cx2, cy2],
+                "crop_size": [crop_w, crop_h],
+                "crop_file": crop_name,
+                "dino_detections": dino_dets,
+            })
+
+        # Write per-frame detection record
+        det_file.write(json.dumps({
+            "frame_idx": idx,
+            "camera_frame": cf,
+            "radar_frame": rf,
+            "num_radar_dets": len(detections),
+            "num_crops": len(crop_images),
+            "crops": frame_det_records,
+        }) + "\n")
+        det_file.flush()
 
         composite = make_crop_composite(crop_images, crop_labels,
                                         args.crop_width, font_sm)
@@ -346,6 +377,8 @@ def main() -> None:
         del raw_resized, radar_img, radar_resized
         if device == "mps":
             torch.mps.empty_cache()
+
+    det_file.close()
 
     # --- Encode videos ---
     if args.skip_video:
