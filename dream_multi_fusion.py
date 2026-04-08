@@ -246,7 +246,7 @@ def main() -> None:
 
     for d in [vid1_dir, vid2_dir, vid3_dir, video_dir]:
         if d.exists():
-            for f in d.glob("*.png"):
+            for f in d.glob("[0-9]*.png"):
                 f.unlink()
         d.mkdir(parents=True, exist_ok=True)
 
