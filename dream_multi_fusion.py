@@ -44,6 +44,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--box-thresh", type=float, default=0.25)
     p.add_argument("--text-thresh", type=float, default=0.25)
     p.add_argument("--dino-prompt", default="boat . buoy . vessel . navigation buoy .")
+    p.add_argument("--max-aspect-ratio", type=float, default=3.0,
+                    help="Skip padded crops with width/height ratio above this (filters shoreline)")
     p.add_argument("--max-frames", type=int, default=0, help="0 = all frames")
     p.add_argument("--fps", type=int, default=20)
     p.add_argument("--skip-video", action="store_true", help="Only produce frames, skip ffmpeg encode")
@@ -309,6 +311,11 @@ def main() -> None:
                 x1 - buf, y1 - buf, x2 + buf, y2 + buf, img_w, img_h)
 
             if cx2 <= cx1 or cy2 <= cy1:
+                continue
+
+            crop_w = cx2 - cx1
+            crop_h = cy2 - cy1
+            if crop_h > 0 and (crop_w / crop_h) > args.max_aspect_ratio:
                 continue
 
             crop = img.crop((cx1, cy1, cx2, cy2))
