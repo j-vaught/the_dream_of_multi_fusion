@@ -246,7 +246,7 @@ def main() -> None:
 
     for d in [vid1_dir, vid2_dir, vid3_dir, video_dir]:
         if d.exists():
-            for f in d.glob("[0-9]*.png"):
+            for f in d.glob("[0-9]*.*"):
                 f.unlink()
         d.mkdir(parents=True, exist_ok=True)
 
@@ -296,12 +296,12 @@ def main() -> None:
 
         # --- Video 1: raw input (downscale to 1920 wide for reasonable video size) ---
         raw_resized = img.resize((1920, int(1920 * img_h / img_w)), Image.LANCZOS)
-        raw_resized.save(vid1_dir / f"{idx:06d}.png")
+        raw_resized.save(vid1_dir / f"{idx:06d}.jpg", quality=95)
 
         # --- Video 2: radar bounding boxes ---
         radar_img = draw_radar_overlay(img, detections, points_data, font_lg)
         radar_resized = radar_img.resize((1920, int(1920 * img_h / img_w)), Image.LANCZOS)
-        radar_resized.save(vid2_dir / f"{idx:06d}.png")
+        radar_resized.save(vid2_dir / f"{idx:06d}.jpg", quality=95)
 
         # --- Video 3: DINO-labeled crops at full resolution ---
         crop_images = []
@@ -336,10 +336,16 @@ def main() -> None:
 
         composite = make_crop_composite(crop_images, crop_labels,
                                         args.crop_width, font_sm)
-        composite.save(vid3_dir / f"{idx:06d}.png")
+        composite.save(vid3_dir / f"{idx:06d}.jpg", quality=95)
 
         print(f"{tag}: {len(detections)} radar dets, "
               f"{len(crop_images)} crops processed")
+
+        # Free memory
+        del img, points_data, crop_images, crop_labels, composite
+        del raw_resized, radar_img, radar_resized
+        if device == "mps":
+            torch.mps.empty_cache()
 
     # --- Encode videos ---
     if args.skip_video:
@@ -355,7 +361,7 @@ def main() -> None:
     for subdir, filename in videos:
         src = out_dir / subdir
         dst = video_dir / filename
-        pattern = str(src / "%06d.png")
+        pattern = str(src / "%06d.jpg")
         cmd = [
             "ffmpeg", "-y",
             "-framerate", str(args.fps),
