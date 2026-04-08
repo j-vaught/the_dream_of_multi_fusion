@@ -49,8 +49,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--max-frames", type=int, default=0, help="0 = all frames")
     p.add_argument("--fps", type=int, default=20)
     p.add_argument("--skip-video", action="store_true", help="Only produce frames, skip ffmpeg encode")
-    p.add_argument("--crop-height", type=int, default=720,
-                    help="Fixed height for each crop tile in vid3 composite")
+    p.add_argument("--crop-width", type=int, default=1920,
+                    help="Fixed width for each crop tile in vid3 composite")
     return p.parse_args()
 
 
@@ -195,39 +195,39 @@ def draw_dino_on_crop(crop: Image.Image, dets: List[Dict], font) -> Image.Image:
 
 
 def make_crop_composite(crops: List[Image.Image], labels: List[str],
-                        target_h: int, font) -> Image.Image:
-    """Tile labeled crops horizontally into a single composite image."""
+                        target_w: int, font) -> Image.Image:
+    """Stack labeled crops vertically into a single composite image."""
     if not crops:
-        placeholder = Image.new("RGB", (640, target_h), (0, 0, 0))
+        placeholder = Image.new("RGB", (target_w, 360), (0, 0, 0))
         d = ImageDraw.Draw(placeholder)
-        d.text((20, target_h // 2 - 12), "No radar detections", fill=(180, 180, 180), font=font)
+        d.text((20, 170), "No radar detections", fill=(180, 180, 180), font=font)
         return placeholder
 
     resized = []
     for crop, lab in zip(crops, labels):
         cw, ch = crop.size
-        if ch == 0:
+        if cw == 0:
             continue
-        scale = target_h / ch
-        new_w = max(1, int(cw * scale))
-        r = crop.resize((new_w, target_h), Image.LANCZOS)
+        scale = target_w / cw
+        new_h = max(1, int(ch * scale))
+        r = crop.resize((target_w, new_h), Image.LANCZOS)
 
         # Add label banner at top
         d = ImageDraw.Draw(r)
-        d.rectangle((0, 0, new_w, 28), fill=(0, 0, 0))
+        d.rectangle((0, 0, target_w, 28), fill=(0, 0, 0))
         d.text((4, 2), lab, fill=(0, 255, 255), font=font)
         resized.append(r)
 
     if not resized:
-        placeholder = Image.new("RGB", (640, target_h), (0, 0, 0))
+        placeholder = Image.new("RGB", (target_w, 360), (0, 0, 0))
         return placeholder
 
-    total_w = sum(r.width for r in resized) + 4 * (len(resized) - 1)
-    comp = Image.new("RGB", (total_w, target_h), (0, 0, 0))
-    x_off = 0
+    total_h = sum(r.height for r in resized) + 4 * (len(resized) - 1)
+    comp = Image.new("RGB", (target_w, total_h), (0, 0, 0))
+    y_off = 0
     for r in resized:
-        comp.paste(r, (x_off, 0))
-        x_off += r.width + 4
+        comp.paste(r, (0, y_off))
+        y_off += r.height + 4
 
     return comp
 
@@ -335,7 +335,7 @@ def main() -> None:
             crop_labels.append(f"T{det['track_id']}  boats:{n_boats} buoys:{n_buoys}")
 
         composite = make_crop_composite(crop_images, crop_labels,
-                                        args.crop_height, font_sm)
+                                        args.crop_width, font_sm)
         composite.save(vid3_dir / f"{idx:06d}.png")
 
         print(f"{tag}: {len(detections)} radar dets, "
