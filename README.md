@@ -175,6 +175,42 @@ frames 119 through 418. They are stored in `data/frames.jsonl` and
 scope, checksums, and the distinction between projected radar points and the
 upstream raw Simrad recording.
 
+## Ground-Truth Labeling
+
+The correction-first labeler uses the nine boxes on camera frame 119 as seed
+annotations. A tracker propagates those boxes through camera frames 119 through
+418. The reviewer accepts correct frames and redraws only boxes that drift.
+Each accepted or corrected frame becomes a manual keyframe, and subsequent
+boxes follow the tracker motion relative to the latest keyframe.
+
+The label schema defines only two classes, `boat` and `buoy`. Stable track IDs
+such as `boat`, `b1`, and `b2` identify individual objects. Manual keyframes are
+stored in `annotations/ground_truth_keyframes.json`. A complete evaluation
+export is written to `annotations/ground_truth.jsonl`, with one record per
+camera frame and provenance fields distinguishing manual and tracked boxes.
+
+On the GPU server, start the labeler with the full-resolution RGB directory and
+the background tracker output.
+
+```bash
+uv run python label_server.py \
+    --rgb-dir data/rgb_out \
+    --tracker out/experiments/tracker/lorat_baseline.jsonl \
+    --host 0.0.0.0 \
+    --port 8765
+```
+
+Forward the labeling port from a local machine and open
+`http://localhost:8765`.
+
+```bash
+ssh -L 8765:localhost:8765 comech-2422
+```
+
+Press Space to accept a frame and continue. Select a target and press `R` to
+redraw it. Arrow keys navigate between frames, and Delete toggles the selected
+target between visible and absent.
+
 ## Author
 
 J.C. Vaught

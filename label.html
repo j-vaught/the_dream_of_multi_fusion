@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dream Fusion ground-truth labeler</title>
+<style>
+:root {
+  --garnet: #73000A;
+  --black: #000000;
+  --dark: #363636;
+  --mid: #5C5C5C;
+  --light: #ECECEC;
+  --white: #FFFFFF;
+  --rose: #CC2E40;
+  --atlantic: #466A9F;
+  --grass: #CED318;
+}
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--black); color: var(--white); font-family: system-ui, sans-serif; }
+button, input, select { border-radius: 0; font: inherit; }
+button { border: 1px solid var(--black); background: var(--white); color: var(--black); padding: 7px 11px; font-weight: 700; cursor: pointer; }
+button:hover { background: var(--light); }
+button.active { background: var(--atlantic); color: var(--white); }
+button.primary { background: var(--grass); }
+button.warn { background: var(--rose); color: var(--white); }
+#toolbar { height: 52px; display: flex; align-items: center; gap: 7px; padding: 7px 10px; background: var(--garnet); border-bottom: 2px solid var(--black); }
+#title { font-weight: 800; margin-right: 8px; }
+#spacer { flex: 1; }
+#frameInput { width: 76px; padding: 7px; border: 1px solid var(--black); }
+#status { min-width: 210px; text-align: right; font-size: 13px; }
+#main { position: absolute; top: 52px; bottom: 230px; left: 0; right: 0; }
+#canvasWrap { position: absolute; inset: 0; background: #0a0a0a; overflow: hidden; }
+canvas { display: block; outline: none; cursor: grab; }
+canvas.draw { cursor: crosshair; }
+canvas.redraw { cursor: crosshair; }
+#footer { position: absolute; height: 230px; bottom: 0; left: 0; right: 0; background: var(--dark); border-top: 2px solid var(--black); display: grid; grid-template-columns: 1fr 330px; }
+#tracks { padding: 8px; overflow: auto; display: grid; grid-template-columns: repeat(3, minmax(260px, 1fr)); gap: 5px; align-content: start; }
+.track { border-left: 5px solid var(--rose); background: #242424; display: grid; grid-template-columns: 54px 56px 1fr auto; align-items: center; gap: 7px; padding: 6px; }
+.track.selected { outline: 2px solid var(--white); }
+.track .name { font-weight: 800; }
+.track .class { color: #c7c7c7; font-size: 12px; }
+.track .conf { color: #c7c7c7; font-family: monospace; font-size: 12px; }
+.track button { padding: 4px 7px; font-size: 12px; }
+#review { border-left: 2px solid var(--black); padding: 10px; display: grid; gap: 8px; align-content: start; }
+#progressOuter { border: 1px solid var(--black); height: 18px; background: var(--mid); }
+#progressInner { height: 100%; width: 0; background: var(--grass); }
+#note { width: 100%; padding: 7px; background: #111; color: var(--white); border: 1px solid var(--mid); }
+#help { color: #c7c7c7; font-size: 12px; line-height: 1.4; }
+.badge { display: inline-block; padding: 2px 6px; border: 1px solid var(--black); background: var(--mid); font-size: 12px; }
+.badge.reviewed { background: var(--grass); color: var(--black); }
+.badge.pending { background: var(--rose); }
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <div id="title">DREAM FUSION LABELER</div>
+  <button id="prev">←</button>
+  <input id="frameInput" type="number" min="119" max="418" value="119">
+  <button id="next">→</button>
+  <button id="play">play</button>
+  <button id="fit">fit</button>
+  <button id="one">1:1</button>
+  <button id="nextLow">next low confidence</button>
+  <button id="nextUnreviewed">next unreviewed</button>
+  <div id="spacer"></div>
+  <span id="frameBadge" class="badge pending">unreviewed</span>
+  <span id="status"></span>
+</div>
+<div id="main">
+  <div id="canvasWrap"><canvas id="canvas" tabindex="0"></canvas></div>
+</div>
+<div id="footer">
+  <div id="tracks"></div>
+  <div id="review">
+    <div><strong>Progress</strong> <span id="progressText"></span></div>
+    <div id="progressOuter"><div id="progressInner"></div></div>
+    <input id="note" placeholder="Optional note for this correction frame">
+    <button id="accept" class="primary">accept frame and continue · Space</button>
+    <button id="save">save correction here · Ctrl+S</button>
+    <div id="help">Select a target below, press R, then drag a replacement box. Mouse wheel zooms. Right-drag pans. Delete marks the selected target absent on this frame. Detector results are intentionally hidden.</div>
+  </div>
+</div>
+<script>
+"use strict";
+
+const canvas = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+const wrap = document.getElementById("canvasWrap");
+const frameInput = document.getElementById("frameInput");
+const tracksElement = document.getElementById("tracks");
+const statusElement = document.getElementById("status");
+const badgeElement = document.getElementById("frameBadge");
+const noteElement = document.getElementById("note");
+const image = new Image();
+
+let frame = 119;
+let payload = null;
+let objects = [];
+let selectedTrack = null;
+let zoom = 1;
+let panX = 0;
+let panY = 0;
+let panning = null;
+let drawing = null;
+let mode = "pan";
+let playing = false;
+let playTimer = null;
+
+function setStatus(message) {
+  statusElement.textContent = message;
+}
+
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = wrap.clientWidth * dpr;
+  canvas.height = wrap.clientHeight * dpr;
+  canvas.style.width = `${wrap.clientWidth}px`;
+  canvas.style.height = `${wrap.clientHeight}px`;
+  context.setTransform(dpr, 0, 0, dpr, 0, 0);
+  draw();
+}
+
+function fitImage() {
+  if (!image.naturalWidth) return;
+  zoom = Math.min(wrap.clientWidth / image.naturalWidth, wrap.clientHeight / image.naturalHeight) * 0.97;
+  panX = (wrap.clientWidth - image.naturalWidth * zoom) / 2;
+  panY = (wrap.clientHeight - image.naturalHeight * zoom) / 2;
+  draw();
+}
+
+function oneToOne() {
+  zoom = 1;
+  panX = (wrap.clientWidth - image.naturalWidth) / 2;
+  panY = (wrap.clientHeight - image.naturalHeight) / 2;
+  draw();
+}
+
+function imagePoint(clientX, clientY) {
+  const rect = canvas.getBoundingClientRect();
+  return {
+    x: Math.max(0, Math.min(image.naturalWidth, (clientX - rect.left - panX) / zoom)),
+    y: Math.max(0, Math.min(image.naturalHeight, (clientY - rect.top - panY) / zoom)),
+  };
+}
+
+function draw() {
+  context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+  context.fillStyle = "#0a0a0a";
+  context.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+  if (!image.naturalWidth) return;
+  context.save();
+  context.translate(panX, panY);
+  context.scale(zoom, zoom);
+  context.drawImage(image, 0, 0);
+  context.font = `${Math.max(12, 22 / zoom)}px system-ui`;
+  for (const object of objects) {
+    if (object.visibility === "absent") continue;
+    const [x1, y1, x2, y2] = object.bbox_xyxy;
+    const selected = object.track_id === selectedTrack;
+    context.lineWidth = (selected ? 5 : 3) / zoom;
+    context.strokeStyle = selected ? "#FFFFFF" : object.color;
+    context.strokeRect(x1, y1, x2 - x1, y2 - y1);
+    const label = `${object.track_id} · ${object.class_name}`;
+    const textWidth = context.measureText(label).width;
+    const labelHeight = 25 / zoom;
+    context.fillStyle = selected ? "#FFFFFF" : object.color;
+    context.fillRect(x1, y1 - labelHeight, textWidth + 10 / zoom, labelHeight);
+    context.fillStyle = selected ? "#000000" : "#FFFFFF";
+    context.fillText(label, x1 + 4 / zoom, y1 - 6 / zoom);
+  }
+  if (drawing) {
+    context.strokeStyle = "#CED318";
+    context.lineWidth = 4 / zoom;
+    context.setLineDash([10 / zoom, 7 / zoom]);
+    context.strokeRect(drawing.x1, drawing.y1, drawing.x2 - drawing.x1, drawing.y2 - drawing.y1);
+    context.setLineDash([]);
+  }
+  context.restore();
+}
+
+function renderTracks() {
+  tracksElement.innerHTML = "";
+  for (const object of objects) {
+    const row = document.createElement("div");
+    row.className = `track${object.track_id === selectedTrack ? " selected" : ""}`;
+    row.style.borderLeftColor = object.color;
+    const confidence = object.tracker_confidence == null ? "seed" : object.tracker_confidence.toFixed(2);
+    row.innerHTML = `
+      <div class="name">${object.track_id}</div>
+      <div class="class">${object.class_name}</div>
+      <div class="conf">tracker ${confidence} · ${object.visibility}</div>
+      <button type="button">redraw</button>`;
+    row.addEventListener("click", () => {
+      selectedTrack = object.track_id;
+      renderTracks();
+      draw();
+    });
+    row.querySelector("button").addEventListener("click", event => {
+      event.stopPropagation();
+      selectedTrack = object.track_id;
+      mode = "redraw";
+      canvas.className = "redraw";
+      renderTracks();
+      setStatus(`drag a replacement box for ${selectedTrack}`);
+    });
+    tracksElement.appendChild(row);
+  }
+}
+
+async function refreshProgress() {
+  const progress = await fetch("/api/progress").then(response => response.json());
+  const percentage = progress.frame_count ? 100 * progress.reviewed_count / progress.frame_count : 0;
+  document.getElementById("progressText").textContent = `${progress.reviewed_count}/${progress.frame_count} reviewed · tracker ${progress.tracker_frame_count}/${progress.frame_count}`;
+  document.getElementById("progressInner").style.width = `${percentage}%`;
+}
+
+async function loadFrame(nextFrame, preserveView = true) {
+  stopPlayback();
+  setStatus(`loading CF ${nextFrame}`);
+  const nextPayload = await fetch(`/api/frame/${nextFrame}`).then(response => {
+    if (!response.ok) throw new Error(`frame ${nextFrame} unavailable`);
+    return response.json();
+  });
+  const shouldFit = !preserveView || !image.naturalWidth;
+  image.onload = () => {
+    if (shouldFit) fitImage();
+    draw();
+  };
+  image.src = `/frame/${nextFrame}?v=${Date.now()}`;
+  frame = nextFrame;
+  payload = nextPayload;
+  objects = nextPayload.objects.map(object => ({...object}));
+  frameInput.value = frame;
+  noteElement.value = nextPayload.note || "";
+  selectedTrack = selectedTrack && objects.some(object => object.track_id === selectedTrack) ? selectedTrack : objects[0]?.track_id;
+  badgeElement.textContent = nextPayload.reviewed ? "reviewed" : "unreviewed";
+  badgeElement.className = `badge ${nextPayload.reviewed ? "reviewed" : "pending"}`;
+  renderTracks();
+  await refreshProgress();
+  setStatus(`CF ${frame} · ${nextPayload.tracker_ready ? "tracker ready" : "seed boxes"}`);
+}
+
+async function saveFrame(continueForward) {
+  setStatus("saving");
+  const response = await fetch(`/api/frame/${frame}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      reviewed: true,
+      note: noteElement.value,
+      objects: objects.map(object => ({
+        track_id: object.track_id,
+        bbox_xyxy: object.bbox_xyxy,
+        visibility: object.visibility,
+      })),
+    }),
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    setStatus(`save failed · ${result.error}`);
+    return;
+  }
+  setStatus(`saved CF ${frame}`);
+  if (continueForward && frame < payload.next_frame) {
+    await loadFrame(payload.next_frame);
+  } else {
+    await loadFrame(frame);
+  }
+}
+
+async function jump(mode) {
+  const result = await fetch(`/api/next/${frame}?mode=${mode}`).then(response => response.json());
+  await loadFrame(result.camera_frame, false);
+}
+
+function stopPlayback() {
+  playing = false;
+  document.getElementById("play").textContent = "play";
+  if (playTimer) clearTimeout(playTimer);
+  playTimer = null;
+}
+
+async function playbackStep() {
+  if (!playing || !payload || frame >= payload.next_frame) {
+    stopPlayback();
+    return;
+  }
+  await loadFrame(payload.next_frame);
+  playing = true;
+  document.getElementById("play").textContent = "pause";
+  playTimer = setTimeout(playbackStep, 150);
+}
+
+canvas.addEventListener("wheel", event => {
+  event.preventDefault();
+  const before = imagePoint(event.clientX, event.clientY);
+  const factor = event.deltaY < 0 ? 1.18 : 1 / 1.18;
+  zoom = Math.max(0.05, Math.min(12, zoom * factor));
+  const rect = canvas.getBoundingClientRect();
+  panX = event.clientX - rect.left - before.x * zoom;
+  panY = event.clientY - rect.top - before.y * zoom;
+  draw();
+}, {passive: false});
+
+canvas.addEventListener("pointerdown", event => {
+  canvas.setPointerCapture(event.pointerId);
+  if ((mode === "redraw" || mode === "draw") && event.button === 0) {
+    const point = imagePoint(event.clientX, event.clientY);
+    drawing = {x1: point.x, y1: point.y, x2: point.x, y2: point.y};
+  } else {
+    panning = {x: event.clientX, y: event.clientY, panX, panY};
+  }
+});
+
+canvas.addEventListener("pointermove", event => {
+  if (drawing) {
+    const point = imagePoint(event.clientX, event.clientY);
+    drawing.x2 = point.x;
+    drawing.y2 = point.y;
+    draw();
+  } else if (panning) {
+    panX = panning.panX + event.clientX - panning.x;
+    panY = panning.panY + event.clientY - panning.y;
+    draw();
+  }
+});
+
+canvas.addEventListener("pointerup", () => {
+  if (drawing && selectedTrack) {
+    const x1 = Math.min(drawing.x1, drawing.x2);
+    const y1 = Math.min(drawing.y1, drawing.y2);
+    const x2 = Math.max(drawing.x1, drawing.x2);
+    const y2 = Math.max(drawing.y1, drawing.y2);
+    if (x2 - x1 >= 1 && y2 - y1 >= 1) {
+      const object = objects.find(item => item.track_id === selectedTrack);
+      object.bbox_xyxy = [x1, y1, x2, y2];
+      object.visibility = "visible";
+    }
+    drawing = null;
+    mode = "pan";
+    canvas.className = "";
+    renderTracks();
+    draw();
+    setStatus(`corrected ${selectedTrack} on CF ${frame}`);
+  }
+  panning = null;
+});
+
+document.getElementById("prev").addEventListener("click", () => loadFrame(payload.previous_frame));
+document.getElementById("next").addEventListener("click", () => loadFrame(payload.next_frame));
+document.getElementById("fit").addEventListener("click", fitImage);
+document.getElementById("one").addEventListener("click", oneToOne);
+document.getElementById("save").addEventListener("click", () => saveFrame(false));
+document.getElementById("accept").addEventListener("click", () => saveFrame(true));
+document.getElementById("nextLow").addEventListener("click", () => jump("low_confidence"));
+document.getElementById("nextUnreviewed").addEventListener("click", () => jump("unreviewed"));
+document.getElementById("play").addEventListener("click", () => {
+  if (playing) {
+    stopPlayback();
+  } else {
+    playing = true;
+    document.getElementById("play").textContent = "pause";
+    playbackStep();
+  }
+});
+frameInput.addEventListener("change", () => loadFrame(Number(frameInput.value), false));
+
+window.addEventListener("keydown", event => {
+  if (event.target === noteElement || event.target === frameInput) return;
+  if (event.code === "Space") {
+    event.preventDefault();
+    saveFrame(true);
+  } else if (event.key === "ArrowRight") {
+    loadFrame(payload.next_frame);
+  } else if (event.key === "ArrowLeft") {
+    loadFrame(payload.previous_frame);
+  } else if (event.key.toLowerCase() === "r" && selectedTrack) {
+    mode = "redraw";
+    canvas.className = "redraw";
+    setStatus(`drag a replacement box for ${selectedTrack}`);
+  } else if (event.key === "Delete" && selectedTrack) {
+    const object = objects.find(item => item.track_id === selectedTrack);
+    object.visibility = object.visibility === "absent" ? "visible" : "absent";
+    renderTracks();
+    draw();
+  } else if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+    event.preventDefault();
+    saveFrame(false);
+  }
+});
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+loadFrame(119, false);
+</script>
+</body>
+</html>
