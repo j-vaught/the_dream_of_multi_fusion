@@ -167,6 +167,14 @@ This pipeline consumes outputs from the radar-camera projection clustering pipel
 4. Assigns persistent track IDs across frames using centroid distance and bounding box IoU.
 5. Emits `frames.jsonl` with per-frame detection metadata and `.npz` files with projected point coordinates.
 
+## Included Radar Input
+
+The repository includes the exact 300 processed radar records used for camera
+frames 119 through 418. They are stored in `data/frames.jsonl` and
+`data/points/`. See `data/README.md` for the synchronization mapping, data
+scope, checksums, and the distinction between projected radar points and the
+upstream raw Simrad recording.
+
 ## Author
 
 J.C. Vaught
