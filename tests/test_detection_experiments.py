@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 
 from evaluate_detection_experiments import filter_predictions, match_frame
+from render_detection_experiment_videos import categorize_detections
 from run_detection_experiments import (
     axis_positions,
     class_aware_nms,
@@ -63,6 +64,26 @@ class DetectionExperimentTest(unittest.TestCase):
         }
         filtered = filter_predictions(predictions, 0.16)
         self.assertEqual([item["score"] for item in filtered[119]], [0.16, 0.8])
+
+    def test_video_categories_match_evaluator(self) -> None:
+        ground_truth = [
+            {"class_name": "boat", "bbox_xyxy": [0, 0, 10, 10]},
+            {"class_name": "buoy", "bbox_xyxy": [20, 20, 25, 30]},
+        ]
+        predictions = [
+            {"label": "vessel", "score": 0.9, "bbox_xyxy": [0, 0, 10, 10]},
+            {"label": "buoy", "score": 0.8, "bbox_xyxy": [50, 50, 60, 60]},
+        ]
+        true_positives, false_positives, false_negatives = categorize_detections(
+            ground_truth,
+            predictions,
+            0.5,
+        )
+        self.assertEqual(len(true_positives), 1)
+        self.assertEqual(len(false_positives), 1)
+        self.assertEqual(len(false_negatives), 1)
+        self.assertEqual(true_positives[0]["label"], "boat")
+        self.assertEqual(false_negatives[0]["class_name"], "buoy")
 
 
 if __name__ == "__main__":

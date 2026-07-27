@@ -71,3 +71,16 @@ uv run python evaluate_detection_experiments.py \
 `metrics.json` contains all, train, validation, and test metrics plus the full
 validation threshold sweep. The JSONL files preserve raw and final detections
 for frame-level review.
+
+## Evaluation videos
+
+Render aligned full-resolution videos for all three methods.
+
+```sh
+uv run python render_detection_experiment_videos.py
+```
+
+The videos use solid magenta for true-positive boats, solid yellow for
+true-positive buoys, and solid red for false positives. False-negative
+ground-truth boxes use a dashed magenta outline with an X. The renderer includes
+no labels or confidence text so object edges remain visible.
