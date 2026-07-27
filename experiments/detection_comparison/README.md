@@ -84,3 +84,14 @@ The videos use solid magenta for true-positive boats, solid yellow for
 true-positive buoys, and solid red for false positives. False-negative
 ground-truth boxes use a dashed magenta outline with an X. The renderer includes
 no labels or confidence text so object edges remain visible.
+
+A crisp three-times zoom around the central boat and nearby buoys can be
+rendered directly from the raw frames.
+
+```sh
+uv run python render_detection_experiment_videos.py \
+  --crop 2550 1300 600 500 \
+  --scale-factor 3 \
+  --line-width 2 \
+  --output-dir out/videos/detection_experiments_zoom
+```

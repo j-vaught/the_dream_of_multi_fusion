@@ -53,6 +53,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--line-width", type=int, default=8)
     parser.add_argument("--max-frames", type=int, default=0)
     parser.add_argument(
+        "--crop",
+        type=int,
+        nargs=4,
+        metavar=("X", "Y", "WIDTH", "HEIGHT"),
+        default=None,
+    )
+    parser.add_argument("--scale-factor", type=float, default=1.0)
+    parser.add_argument(
         "--encoder",
         choices=("auto", "h264_nvenc", "libx264"),
         default="auto",
@@ -245,7 +253,9 @@ def main() -> None:
         raise ValueError("ground-truth manifest contains no frames")
 
     with Image.open(args.rgb_dir / f"{camera_frames[0]}_rgb.png") as first_image:
-        encoder = choose_encoder(args.encoder, first_image.width)
+        output_width = args.crop[2] if args.crop else first_image.width
+    output_width = round(output_width * args.scale_factor)
+    encoder = choose_encoder(args.encoder, output_width)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(
@@ -269,6 +279,24 @@ def main() -> None:
                     args.iou_threshold,
                     args.line_width,
                 )
+                if args.crop:
+                    crop_x, crop_y, crop_width, crop_height = args.crop
+                    image = image.crop(
+                        (
+                            crop_x,
+                            crop_y,
+                            crop_x + crop_width,
+                            crop_y + crop_height,
+                        )
+                    )
+                if args.scale_factor != 1.0:
+                    image = image.resize(
+                        (
+                            round(image.width * args.scale_factor),
+                            round(image.height * args.scale_factor),
+                        ),
+                        Image.Resampling.LANCZOS,
+                    )
                 image.save(
                     frame_directories[method_name] / f"{frame_index:06d}.jpg",
                     quality=95,
