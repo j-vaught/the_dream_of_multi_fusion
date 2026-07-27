@@ -34,7 +34,12 @@ def normalize_box(values: list[float], width: int, height: int) -> list[float]:
     x1, x2 = sorted((max(0.0, min(x1, width)), max(0.0, min(x2, width))))
     y1, y2 = sorted((max(0.0, min(y1, height)), max(0.0, min(y2, height))))
     if x2 - x1 < 1 or y2 - y1 < 1:
-        raise ValueError("bounding boxes must be at least one pixel wide and high")
+        center_x = (x1 + x2) / 2
+        center_y = (y1 + y2) / 2
+        x1 = max(0.0, min(center_x - 0.5, width - 1))
+        x2 = x1 + 1
+        y1 = max(0.0, min(center_y - 0.5, height - 1))
+        y2 = y1 + 1
     return [x1, y1, x2, y2]
 
 

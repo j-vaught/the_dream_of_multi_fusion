@@ -216,6 +216,13 @@ full-resolution image for precise box correction. The scrub bar jumps directly
 to any camera frame using previews. Buoy boxes are cyan and boat boxes are pink,
 with no labels drawn over the image.
 
+Render the current corrected boxes over the source-resolution frames and encode
+the result at 20 frames per second.
+
+```bash
+uv run python render_ground_truth_video.py
+```
+
 ## Author
 
 J.C. Vaught

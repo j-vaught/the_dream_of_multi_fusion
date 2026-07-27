@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from label_server import LabelStore, build_app
+from label_server import LabelStore, build_app, normalize_box
 
 
 class LabelStoreTest(unittest.TestCase):
@@ -169,6 +169,12 @@ class LabelStoreTest(unittest.TestCase):
         response = client.get("/preview/120")
         self.assertEqual(response.status_code, 200)
         response.close()
+
+    def test_collapsed_tracker_box_is_expanded_to_one_pixel(self) -> None:
+        self.assertEqual(
+            normalize_box([100, 50, 100, 50], width=200, height=100),
+            [99.5, 49.5, 100.5, 50.5],
+        )
 
 
 if __name__ == "__main__":
