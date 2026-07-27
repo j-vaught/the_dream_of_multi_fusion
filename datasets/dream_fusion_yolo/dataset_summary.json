@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "image_size": {
+    "width": 5320,
+    "height": 3032
+  },
+  "frame_count": 300,
+  "split_method": "chronological",
+  "split_counts": {
+    "test": 45,
+    "train": 210,
+    "val": 45
+  },
+  "class_counts": {
+    "boat": 300,
+    "buoy": 2192
+  },
+  "track_counts": {
+    "b1": 300,
+    "b2": 92,
+    "b3": 300,
+    "b4": 300,
+    "b5": 300,
+    "b6": 300,
+    "b7": 300,
+    "b8": 300,
+    "boat": 300
+  },
+  "last_labeled_frame": {
+    "b1": 418,
+    "b2": 210,
+    "b3": 418,
+    "b4": 418,
+    "b5": 418,
+    "b6": 418,
+    "b7": 418,
+    "b8": 418,
+    "boat": 418
+  },
+  "absence_rules": {
+    "b2": 211
+  },
+  "class_ids": {
+    "boat": 0,
+    "buoy": 1
+  }
+}

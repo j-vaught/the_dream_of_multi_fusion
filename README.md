@@ -223,6 +223,16 @@ the result at 20 frames per second.
 uv run python render_ground_truth_video.py
 ```
 
+Export the same corrected boxes as a full-resolution YOLO detection dataset.
+The split is chronological so adjacent video frames do not leak between
+training, validation, and test sets. The explicit cutoff assertion guarantees
+that track `b2` has no labels from frame 211 onward.
+
+```bash
+uv run python export_yolo_dataset.py \
+    --assert-absent-after b2:211
+```
+
 ## Author
 
 J.C. Vaught
