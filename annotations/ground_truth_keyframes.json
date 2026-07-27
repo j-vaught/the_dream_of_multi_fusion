@@ -1,0 +1,282 @@
+{
+  "schema_version": "1.0",
+  "dataset": {
+    "name": "dream_fusion_lake_murray_300",
+    "image_size": {
+      "width": 5320,
+      "height": 3032
+    },
+    "first_camera_frame": 119,
+    "last_camera_frame": 418,
+    "frame_count": 300
+  },
+  "classes": [
+    {
+      "class_id": 0,
+      "name": "boat"
+    },
+    {
+      "class_id": 1,
+      "name": "buoy"
+    }
+  ],
+  "tracks": [
+    {
+      "track_id": "b1",
+      "class_id": 1,
+      "class_name": "buoy",
+      "display_name": "b1",
+      "color": "#CC2E40"
+    },
+    {
+      "track_id": "b2",
+      "class_id": 1,
+      "class_name": "buoy",
+      "display_name": "b2",
+      "color": "#466A9F"
+    },
+    {
+      "track_id": "boat",
+      "class_id": 0,
+      "class_name": "boat",
+      "display_name": "boat",
+      "color": "#65780B"
+    },
+    {
+      "track_id": "b3",
+      "class_id": 1,
+      "class_name": "buoy",
+      "display_name": "b3",
+      "color": "#A49137"
+    },
+    {
+      "track_id": "b4",
+      "class_id": 1,
+      "class_name": "buoy",
+      "display_name": "b4",
+      "color": "#1F414D"
+    },
+    {
+      "track_id": "b5",
+      "class_id": 1,
+      "class_name": "buoy",
+      "display_name": "b5",
+      "color": "#CED318"
+    },
+    {
+      "track_id": "b6",
+      "class_id": 1,
+      "class_name": "buoy",
+      "display_name": "b6",
+      "color": "#CC2E40"
+    },
+    {
+      "track_id": "b7",
+      "class_id": 1,
+      "class_name": "buoy",
+      "display_name": "b7",
+      "color": "#466A9F"
+    },
+    {
+      "track_id": "b8",
+      "class_id": 1,
+      "class_name": "buoy",
+      "display_name": "b8",
+      "color": "#65780B"
+    }
+  ],
+  "keyframes": {
+    "119": {
+      "reviewed": true,
+      "note": "Imported seed boxes. Verify before accepting.",
+      "objects": [
+        {
+          "track_id": "b1",
+          "bbox_xyxy": [
+            2713.410208767291,
+            1611.1910186612579,
+            2728.0547618760525,
+            1664.1367106698572
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b2",
+          "bbox_xyxy": [
+            2887.039801671932,
+            1512.7649236780626,
+            2891.7364022759743,
+            1527.8153937955617
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "boat",
+          "bbox_xyxy": [
+            2750.4163872442764,
+            1496.7491040594807,
+            2833.4936780522207,
+            1530.5400920060827
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b3",
+          "bbox_xyxy": [
+            3809.327395068202,
+            1518.7182637649273,
+            3816.1456583098893,
+            1534.789884263191
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b4",
+          "bbox_xyxy": [
+            4767.927166412664,
+            1492.3131228170726,
+            4771.939853991769,
+            1499.3353260805068
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b5",
+          "bbox_xyxy": [
+            4765.753627307315,
+            1501.1744745542633,
+            4771.271072728585,
+            1512.209365396803
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b6",
+          "bbox_xyxy": [
+            4751.709220780446,
+            1494.4866619224213,
+            4757.728252149104,
+            1505.5215527649607
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b7",
+          "bbox_xyxy": [
+            4857.209465047757,
+            1504.0167949227962,
+            4864.733254258578,
+            1518.0612014496646
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b8",
+          "bbox_xyxy": [
+            5305.131850737642,
+            1488.1471281513623,
+            5310.28563925605,
+            1496.6259415203563
+          ],
+          "visibility": "visible"
+        }
+      ]
+    },
+    "211": {
+      "reviewed": true,
+      "note": "b2 occluded by boat from this frame",
+      "objects": [
+        {
+          "track_id": "b1",
+          "bbox_xyxy": [
+            2704.7551561887594,
+            1611.5823632222225,
+            2719.80216432766,
+            1663.8353751139266
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b2",
+          "bbox_xyxy": [
+            2889.1858171745735,
+            1512.8023389053901,
+            2894.558942378973,
+            1527.270076925041
+          ],
+          "visibility": "absent"
+        },
+        {
+          "track_id": "boat",
+          "bbox_xyxy": [
+            2800.6167696812286,
+            1497.2609239779324,
+            2888.3251708321964,
+            1530.0999063119395
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b3",
+          "bbox_xyxy": [
+            3808.472402599444,
+            1517.9144881371988,
+            3815.39262001388,
+            1535.9090393401304
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b4",
+          "bbox_xyxy": [
+            4769.432351838653,
+            1491.2769468276936,
+            4773.591981247975,
+            1499.9462574313527
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b5",
+          "bbox_xyxy": [
+            4765.712126404047,
+            1501.1358543932438,
+            4771.341902077198,
+            1512.31291782856
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b6",
+          "bbox_xyxy": [
+            4749.18017556289,
+            1494.4132404735947,
+            4755.250773475461,
+            1504.98438889818
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b7",
+          "bbox_xyxy": [
+            4853.745626819043,
+            1504.0382685661316,
+            4860.923108837792,
+            1517.8009033203125
+          ],
+          "visibility": "visible"
+        },
+        {
+          "track_id": "b8",
+          "bbox_xyxy": [
+            5306.006627891995,
+            1488.0391340393176,
+            5312.030529455529,
+            1496.5532476235544
+          ],
+          "visibility": "visible"
+        }
+      ]
+    }
+  }
+}
