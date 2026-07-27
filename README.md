@@ -195,6 +195,7 @@ the background tracker output.
 ```bash
 uv run python label_server.py \
     --rgb-dir data/rgb_out \
+    --preview-dir out/vid1_raw \
     --tracker out/experiments/tracker/lorat_baseline.jsonl \
     --host 0.0.0.0 \
     --port 8765
@@ -209,7 +210,9 @@ ssh -L 8765:localhost:8765 comech-2422
 
 Press Space to accept a frame and continue. Select a target and press `R` to
 redraw it. Arrow keys navigate between frames, and Delete toggles the selected
-target between visible and absent.
+target between visible and absent. Navigation and playback use lightweight
+preview frames. Pressing `R` or clicking the resolution button loads the
+full-resolution image for precise box correction.
 
 ## Author
 

@@ -41,6 +41,7 @@ def normalize_box(values: list[float], width: int, height: int) -> list[float]:
 @dataclass
 class LabelStore:
     rgb_dir: Path
+    preview_dir: Path | None
     seed_path: Path
     tracker_path: Path
     state_path: Path
@@ -62,6 +63,12 @@ class LabelStore:
         ]
         if not self.frames:
             raise FileNotFoundError(f"No RGB frames found in {self.rgb_dir}")
+        self.preview_paths = {}
+        if self.preview_dir and self.preview_dir.exists():
+            for index, frame in enumerate(self.frames):
+                preview = self.preview_dir / f"{index:06d}.jpg"
+                if preview.exists():
+                    self.preview_paths[frame] = preview
 
         self.seed = json.loads(self.seed_path.read_text(encoding="utf-8"))
         image_size = self.seed["image_size"]
@@ -238,6 +245,7 @@ class LabelStore:
                 "reviewed": bool(keyframe.get("reviewed", False)),
                 "note": keyframe.get("note", ""),
                 "tracker_ready": frame in self.tracker,
+                "preview_ready": frame in self.preview_paths,
                 "minimum_tracker_confidence": min(confidences) if confidences else None,
                 "objects": objects,
             }
@@ -361,6 +369,13 @@ def build_app(store: LabelStore) -> Flask:
             return jsonify({"error": "frame not found"}), 404
         return send_from_directory(store.rgb_dir, store.frame_paths[frame].name, max_age=3600)
 
+    @app.get("/preview/<int:frame>")
+    def frame_preview(frame: int):
+        preview = store.preview_paths.get(frame)
+        if preview is None:
+            return jsonify({"error": "preview not found"}), 404
+        return send_from_directory(preview.parent, preview.name, max_age=86400)
+
     @app.get("/api/frame/<int:frame>")
     def frame_data(frame: int):
         try:
@@ -407,6 +422,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--host", default="0.0.0.0")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--rgb-dir", type=Path, default=ROOT / "data" / "rgb_out")
+    parser.add_argument(
+        "--preview-dir",
+        type=Path,
+        default=None,
+        help="Optional sequential JPEG directory where 000000.jpg maps to --first-frame",
+    )
     parser.add_argument("--seed", type=Path, default=ROOT / "annotations" / "initial_boxes.json")
     parser.add_argument(
         "--tracker",
@@ -432,6 +453,7 @@ def main() -> None:
     args = parse_args()
     store = LabelStore(
         rgb_dir=args.rgb_dir,
+        preview_dir=args.preview_dir,
         seed_path=args.seed,
         tracker_path=args.tracker,
         state_path=args.state,

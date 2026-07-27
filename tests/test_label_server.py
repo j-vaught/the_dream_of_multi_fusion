@@ -14,8 +14,11 @@ class LabelStoreTest(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.rgb_dir = self.root / "rgb"
         self.rgb_dir.mkdir()
+        self.preview_dir = self.root / "preview"
+        self.preview_dir.mkdir()
         for frame in range(119, 122):
             (self.rgb_dir / f"{frame}_rgb.png").touch()
+            (self.preview_dir / f"{frame - 119:06d}.jpg").touch()
 
         self.seed_path = self.root / "initial_boxes.json"
         self.seed_path.write_text(
@@ -68,6 +71,7 @@ class LabelStoreTest(unittest.TestCase):
         self.export_path = self.root / "ground_truth.jsonl"
         self.store = LabelStore(
             rgb_dir=self.rgb_dir,
+            preview_dir=self.preview_dir,
             seed_path=self.seed_path,
             tracker_path=self.tracker_path,
             state_path=self.state_path,
@@ -155,6 +159,16 @@ class LabelStoreTest(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.get_json()["reviewed"])
+
+    def test_preview_mapping_uses_frame_order(self) -> None:
+        self.assertEqual(
+            self.store.preview_paths[120],
+            self.preview_dir / "000001.jpg",
+        )
+        client = build_app(self.store).test_client()
+        response = client.get("/preview/120")
+        self.assertEqual(response.status_code, 200)
+        response.close()
 
 
 if __name__ == "__main__":

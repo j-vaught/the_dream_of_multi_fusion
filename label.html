@@ -61,6 +61,7 @@ canvas.redraw { cursor: crosshair; }
   <button id="play">play</button>
   <button id="fit">fit</button>
   <button id="one">1:1</button>
+  <button id="quality">preview</button>
   <button id="nextLow">next low confidence</button>
   <button id="nextUnreviewed">next unreviewed</button>
   <div id="spacer"></div>
@@ -92,7 +93,7 @@ const tracksElement = document.getElementById("tracks");
 const statusElement = document.getElementById("status");
 const badgeElement = document.getElementById("frameBadge");
 const noteElement = document.getElementById("note");
-const image = new Image();
+let image = new Image();
 
 let frame = 119;
 let payload = null;
@@ -106,6 +107,12 @@ let drawing = null;
 let mode = "pan";
 let playing = false;
 let playTimer = null;
+let imageQuality = "preview";
+let loadSerial = 0;
+let metadataAbort = null;
+let progressLoaded = false;
+let pendingImage = null;
+let pendingImageReject = null;
 
 function setStatus(message) {
   statusElement.textContent = message;
@@ -121,26 +128,34 @@ function resizeCanvas() {
   draw();
 }
 
+function coordinateWidth() {
+  return payload?.image_size?.width || image.naturalWidth;
+}
+
+function coordinateHeight() {
+  return payload?.image_size?.height || image.naturalHeight;
+}
+
 function fitImage() {
   if (!image.naturalWidth) return;
-  zoom = Math.min(wrap.clientWidth / image.naturalWidth, wrap.clientHeight / image.naturalHeight) * 0.97;
-  panX = (wrap.clientWidth - image.naturalWidth * zoom) / 2;
-  panY = (wrap.clientHeight - image.naturalHeight * zoom) / 2;
+  zoom = Math.min(wrap.clientWidth / coordinateWidth(), wrap.clientHeight / coordinateHeight()) * 0.97;
+  panX = (wrap.clientWidth - coordinateWidth() * zoom) / 2;
+  panY = (wrap.clientHeight - coordinateHeight() * zoom) / 2;
   draw();
 }
 
 function oneToOne() {
   zoom = 1;
-  panX = (wrap.clientWidth - image.naturalWidth) / 2;
-  panY = (wrap.clientHeight - image.naturalHeight) / 2;
+  panX = (wrap.clientWidth - coordinateWidth()) / 2;
+  panY = (wrap.clientHeight - coordinateHeight()) / 2;
   draw();
 }
 
 function imagePoint(clientX, clientY) {
   const rect = canvas.getBoundingClientRect();
   return {
-    x: Math.max(0, Math.min(image.naturalWidth, (clientX - rect.left - panX) / zoom)),
-    y: Math.max(0, Math.min(image.naturalHeight, (clientY - rect.top - panY) / zoom)),
+    x: Math.max(0, Math.min(coordinateWidth(), (clientX - rect.left - panX) / zoom)),
+    y: Math.max(0, Math.min(coordinateHeight(), (clientY - rect.top - panY) / zoom)),
   };
 }
 
@@ -152,7 +167,7 @@ function draw() {
   context.save();
   context.translate(panX, panY);
   context.scale(zoom, zoom);
-  context.drawImage(image, 0, 0);
+  context.drawImage(image, 0, 0, coordinateWidth(), coordinateHeight());
   context.font = `${Math.max(12, 22 / zoom)}px system-ui`;
   for (const object of objects) {
     if (object.visibility === "absent") continue;
@@ -199,10 +214,8 @@ function renderTracks() {
     row.querySelector("button").addEventListener("click", event => {
       event.stopPropagation();
       selectedTrack = object.track_id;
-      mode = "redraw";
-      canvas.className = "redraw";
       renderTracks();
-      setStatus(`drag a replacement box for ${selectedTrack}`);
+      startRedraw();
     });
     tracksElement.appendChild(row);
   }
@@ -213,32 +226,117 @@ async function refreshProgress() {
   const percentage = progress.frame_count ? 100 * progress.reviewed_count / progress.frame_count : 0;
   document.getElementById("progressText").textContent = `${progress.reviewed_count}/${progress.frame_count} reviewed · tracker ${progress.tracker_frame_count}/${progress.frame_count}`;
   document.getElementById("progressInner").style.width = `${percentage}%`;
+  progressLoaded = true;
 }
 
-async function loadFrame(nextFrame, preserveView = true) {
-  stopPlayback();
-  setStatus(`loading CF ${nextFrame}`);
-  const nextPayload = await fetch(`/api/frame/${nextFrame}`).then(response => {
-    if (!response.ok) throw new Error(`frame ${nextFrame} unavailable`);
-    return response.json();
+function imageUrl(nextFrame, quality, framePayload) {
+  if (quality === "preview" && framePayload.preview_ready) {
+    return `/preview/${nextFrame}`;
+  }
+  return `/frame/${nextFrame}`;
+}
+
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    if (pendingImage) {
+      pendingImage.onload = null;
+      pendingImage.onerror = null;
+      pendingImage.src = "";
+      pendingImageReject?.(new Error("superseded by a newer frame request"));
+    }
+    const candidate = new Image();
+    pendingImage = candidate;
+    pendingImageReject = reject;
+    candidate.decoding = "async";
+    candidate.onload = () => {
+      if (pendingImage === candidate) pendingImage = null;
+      if (pendingImage === null) pendingImageReject = null;
+      resolve(candidate);
+    };
+    candidate.onerror = () => {
+      if (pendingImage === candidate) pendingImage = null;
+      if (pendingImage === null) pendingImageReject = null;
+      reject(new Error(`image unavailable at ${url}`));
+    };
+    candidate.src = url;
   });
+}
+
+function prefetchPreview(nextFrame) {
+  if (!nextFrame || nextFrame === frame) return;
+  const candidate = new Image();
+  candidate.decoding = "async";
+  candidate.src = `/preview/${nextFrame}`;
+}
+
+async function loadFrame(
+  nextFrame,
+  {preserveView = true, stop = true, quality = imageQuality} = {},
+) {
+  if (stop) stopPlayback();
+  const requestSerial = ++loadSerial;
+  if (metadataAbort) metadataAbort.abort();
+  metadataAbort = new AbortController();
+  setStatus(`loading CF ${nextFrame}`);
+  let nextPayload;
+  let nextImage;
+  try {
+    nextPayload = await fetch(`/api/frame/${nextFrame}`, {
+      signal: metadataAbort.signal,
+      cache: "no-store",
+    }).then(response => {
+      if (!response.ok) throw new Error(`frame ${nextFrame} unavailable`);
+      return response.json();
+    });
+    nextImage = await loadImage(imageUrl(nextFrame, quality, nextPayload));
+  } catch (error) {
+    if (error.name !== "AbortError" && requestSerial === loadSerial) {
+      setStatus(`load failed · ${error.message}`);
+    }
+    return false;
+  }
+  if (requestSerial !== loadSerial) return false;
   const shouldFit = !preserveView || !image.naturalWidth;
-  image.onload = () => {
-    if (shouldFit) fitImage();
-    draw();
-  };
-  image.src = `/frame/${nextFrame}?v=${Date.now()}`;
   frame = nextFrame;
   payload = nextPayload;
+  image = nextImage;
+  imageQuality = quality === "preview" && nextPayload.preview_ready ? "preview" : "full";
   objects = nextPayload.objects.map(object => ({...object}));
   frameInput.value = frame;
   noteElement.value = nextPayload.note || "";
   selectedTrack = selectedTrack && objects.some(object => object.track_id === selectedTrack) ? selectedTrack : objects[0]?.track_id;
   badgeElement.textContent = nextPayload.reviewed ? "reviewed" : "unreviewed";
   badgeElement.className = `badge ${nextPayload.reviewed ? "reviewed" : "pending"}`;
+  document.getElementById("quality").textContent = imageQuality === "preview" ? "preview" : "full resolution";
+  document.getElementById("quality").classList.toggle("active", imageQuality === "full");
+  if (shouldFit) fitImage();
   renderTracks();
-  await refreshProgress();
-  setStatus(`CF ${frame} · ${nextPayload.tracker_ready ? "tracker ready" : "seed boxes"}`);
+  draw();
+  if (!progressLoaded) await refreshProgress();
+  setStatus(`CF ${frame} · ${imageQuality} · ${nextPayload.tracker_ready ? "tracker ready" : "seed boxes"}`);
+  prefetchPreview(nextPayload.next_frame);
+  return true;
+}
+
+async function setImageQuality(quality) {
+  if (!payload || imageQuality === quality) return;
+  await loadFrame(frame, {preserveView: true, stop: true, quality});
+}
+
+async function startRedraw() {
+  stopPlayback();
+  if (imageQuality !== "full") {
+    setStatus(`loading full resolution for ${selectedTrack}`);
+    const loaded = await loadFrame(frame, {
+      preserveView: true,
+      stop: false,
+      quality: "full",
+    });
+    if (!loaded) return;
+  }
+  mode = "redraw";
+  canvas.className = "redraw";
+  setStatus(`drag a replacement box for ${selectedTrack}`);
 }
 
 async function saveFrame(continueForward) {
@@ -262,16 +360,17 @@ async function saveFrame(continueForward) {
     return;
   }
   setStatus(`saved CF ${frame}`);
+  await refreshProgress();
   if (continueForward && frame < payload.next_frame) {
-    await loadFrame(payload.next_frame);
+    await loadFrame(payload.next_frame, {quality: "preview"});
   } else {
-    await loadFrame(frame);
+    await loadFrame(frame, {quality: imageQuality});
   }
 }
 
 async function jump(mode) {
   const result = await fetch(`/api/next/${frame}?mode=${mode}`).then(response => response.json());
-  await loadFrame(result.camera_frame, false);
+  await loadFrame(result.camera_frame, {preserveView: false, quality: "preview"});
 }
 
 function stopPlayback() {
@@ -286,10 +385,13 @@ async function playbackStep() {
     stopPlayback();
     return;
   }
-  await loadFrame(payload.next_frame);
-  playing = true;
-  document.getElementById("play").textContent = "pause";
-  playTimer = setTimeout(playbackStep, 150);
+  const loaded = await loadFrame(payload.next_frame, {
+    preserveView: true,
+    stop: false,
+    quality: "preview",
+  });
+  if (!playing || !loaded) return;
+  playTimer = setTimeout(playbackStep, 120);
 }
 
 canvas.addEventListener("wheel", event => {
@@ -347,10 +449,13 @@ canvas.addEventListener("pointerup", () => {
   panning = null;
 });
 
-document.getElementById("prev").addEventListener("click", () => loadFrame(payload.previous_frame));
-document.getElementById("next").addEventListener("click", () => loadFrame(payload.next_frame));
+document.getElementById("prev").addEventListener("click", () => loadFrame(payload.previous_frame, {quality: "preview"}));
+document.getElementById("next").addEventListener("click", () => loadFrame(payload.next_frame, {quality: "preview"}));
 document.getElementById("fit").addEventListener("click", fitImage);
 document.getElementById("one").addEventListener("click", oneToOne);
+document.getElementById("quality").addEventListener("click", () => {
+  setImageQuality(imageQuality === "preview" ? "full" : "preview");
+});
 document.getElementById("save").addEventListener("click", () => saveFrame(false));
 document.getElementById("accept").addEventListener("click", () => saveFrame(true));
 document.getElementById("nextLow").addEventListener("click", () => jump("low_confidence"));
@@ -364,7 +469,7 @@ document.getElementById("play").addEventListener("click", () => {
     playbackStep();
   }
 });
-frameInput.addEventListener("change", () => loadFrame(Number(frameInput.value), false));
+frameInput.addEventListener("change", () => loadFrame(Number(frameInput.value), {preserveView: false, quality: "preview"}));
 
 window.addEventListener("keydown", event => {
   if (event.target === noteElement || event.target === frameInput) return;
@@ -372,13 +477,11 @@ window.addEventListener("keydown", event => {
     event.preventDefault();
     saveFrame(true);
   } else if (event.key === "ArrowRight") {
-    loadFrame(payload.next_frame);
+    loadFrame(payload.next_frame, {quality: "preview"});
   } else if (event.key === "ArrowLeft") {
-    loadFrame(payload.previous_frame);
+    loadFrame(payload.previous_frame, {quality: "preview"});
   } else if (event.key.toLowerCase() === "r" && selectedTrack) {
-    mode = "redraw";
-    canvas.className = "redraw";
-    setStatus(`drag a replacement box for ${selectedTrack}`);
+    startRedraw();
   } else if (event.key === "Delete" && selectedTrack) {
     const object = objects.find(item => item.track_id === selectedTrack);
     object.visibility = object.visibility === "absent" ? "visible" : "absent";
@@ -392,7 +495,7 @@ window.addEventListener("keydown", event => {
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
-loadFrame(119, false);
+loadFrame(119, {preserveView: false, quality: "preview"});
 </script>
 </body>
 </html>
