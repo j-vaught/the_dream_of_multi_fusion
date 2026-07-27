@@ -212,7 +212,9 @@ Press Space to accept a frame and continue. Select a target and press `R` to
 redraw it. Arrow keys navigate between frames, and Delete toggles the selected
 target between visible and absent. Navigation and playback use lightweight
 preview frames. Pressing `R` or clicking the resolution button loads the
-full-resolution image for precise box correction.
+full-resolution image for precise box correction. The scrub bar jumps directly
+to any camera frame using previews. Buoy boxes are cyan and boat boxes are pink,
+with no labels drawn over the image.
 
 ## Author
 

@@ -29,7 +29,9 @@ button.warn { background: var(--rose); color: var(--white); }
 #spacer { flex: 1; }
 #frameInput { width: 76px; padding: 7px; border: 1px solid var(--black); }
 #status { min-width: 210px; text-align: right; font-size: 13px; }
-#main { position: absolute; top: 52px; bottom: 230px; left: 0; right: 0; }
+#scrubBar { position: absolute; top: 52px; left: 0; right: 0; height: 34px; padding: 7px 12px; background: #181818; border-bottom: 2px solid var(--black); }
+#scrubber { width: 100%; height: 18px; margin: 0; accent-color: #00FFFF; cursor: ew-resize; }
+#main { position: absolute; top: 86px; bottom: 230px; left: 0; right: 0; }
 #canvasWrap { position: absolute; inset: 0; background: #0a0a0a; overflow: hidden; }
 canvas { display: block; outline: none; cursor: grab; }
 canvas.draw { cursor: crosshair; }
@@ -68,6 +70,9 @@ canvas.redraw { cursor: crosshair; }
   <span id="frameBadge" class="badge pending">unreviewed</span>
   <span id="status"></span>
 </div>
+<div id="scrubBar">
+  <input id="scrubber" type="range" min="119" max="418" step="1" value="119" aria-label="Video frame">
+</div>
 <div id="main">
   <div id="canvasWrap"><canvas id="canvas" tabindex="0"></canvas></div>
 </div>
@@ -89,6 +94,7 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const wrap = document.getElementById("canvasWrap");
 const frameInput = document.getElementById("frameInput");
+const scrubber = document.getElementById("scrubber");
 const tracksElement = document.getElementById("tracks");
 const statusElement = document.getElementById("status");
 const badgeElement = document.getElementById("frameBadge");
@@ -113,6 +119,7 @@ let metadataAbort = null;
 let progressLoaded = false;
 let pendingImage = null;
 let pendingImageReject = null;
+let scrubTimer = null;
 
 function setStatus(message) {
   statusElement.textContent = message;
@@ -159,6 +166,10 @@ function imagePoint(clientX, clientY) {
   };
 }
 
+function overlayColor(object) {
+  return object.class_name === "boat" ? "#FF4FA3" : "#00FFFF";
+}
+
 function draw() {
   context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
   context.fillStyle = "#0a0a0a";
@@ -168,24 +179,17 @@ function draw() {
   context.translate(panX, panY);
   context.scale(zoom, zoom);
   context.drawImage(image, 0, 0, coordinateWidth(), coordinateHeight());
-  context.font = `${Math.max(12, 22 / zoom)}px system-ui`;
   for (const object of objects) {
     if (object.visibility === "absent") continue;
     const [x1, y1, x2, y2] = object.bbox_xyxy;
     const selected = object.track_id === selectedTrack;
     context.lineWidth = (selected ? 5 : 3) / zoom;
-    context.strokeStyle = selected ? "#FFFFFF" : object.color;
+    context.strokeStyle = overlayColor(object);
     context.strokeRect(x1, y1, x2 - x1, y2 - y1);
-    const label = `${object.track_id} · ${object.class_name}`;
-    const textWidth = context.measureText(label).width;
-    const labelHeight = 25 / zoom;
-    context.fillStyle = selected ? "#FFFFFF" : object.color;
-    context.fillRect(x1, y1 - labelHeight, textWidth + 10 / zoom, labelHeight);
-    context.fillStyle = selected ? "#000000" : "#FFFFFF";
-    context.fillText(label, x1 + 4 / zoom, y1 - 6 / zoom);
   }
   if (drawing) {
-    context.strokeStyle = "#CED318";
+    const selectedObject = objects.find(object => object.track_id === selectedTrack);
+    context.strokeStyle = selectedObject ? overlayColor(selectedObject) : "#FFFFFF";
     context.lineWidth = 4 / zoom;
     context.setLineDash([10 / zoom, 7 / zoom]);
     context.strokeRect(drawing.x1, drawing.y1, drawing.x2 - drawing.x1, drawing.y2 - drawing.y1);
@@ -199,7 +203,7 @@ function renderTracks() {
   for (const object of objects) {
     const row = document.createElement("div");
     row.className = `track${object.track_id === selectedTrack ? " selected" : ""}`;
-    row.style.borderLeftColor = object.color;
+    row.style.borderLeftColor = overlayColor(object);
     const confidence = object.tracker_confidence == null ? "seed" : object.tracker_confidence.toFixed(2);
     row.innerHTML = `
       <div class="name">${object.track_id}</div>
@@ -303,6 +307,7 @@ async function loadFrame(
   imageQuality = quality === "preview" && nextPayload.preview_ready ? "preview" : "full";
   objects = nextPayload.objects.map(object => ({...object}));
   frameInput.value = frame;
+  scrubber.value = frame;
   noteElement.value = nextPayload.note || "";
   selectedTrack = selectedTrack && objects.some(object => object.track_id === selectedTrack) ? selectedTrack : objects[0]?.track_id;
   badgeElement.textContent = nextPayload.reviewed ? "reviewed" : "unreviewed";
@@ -470,6 +475,23 @@ document.getElementById("play").addEventListener("click", () => {
   }
 });
 frameInput.addEventListener("change", () => loadFrame(Number(frameInput.value), {preserveView: false, quality: "preview"}));
+scrubber.addEventListener("input", () => {
+  frameInput.value = scrubber.value;
+  clearTimeout(scrubTimer);
+  scrubTimer = setTimeout(() => {
+    loadFrame(Number(scrubber.value), {
+      preserveView: true,
+      quality: "preview",
+    });
+  }, 80);
+});
+scrubber.addEventListener("change", () => {
+  clearTimeout(scrubTimer);
+  loadFrame(Number(scrubber.value), {
+    preserveView: true,
+    quality: "preview",
+  });
+});
 
 window.addEventListener("keydown", event => {
   if (event.target === noteElement || event.target === frameInput) return;
