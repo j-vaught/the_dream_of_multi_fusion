@@ -39,7 +39,7 @@ OUTPUT_FILES = (
     "figure_03_detection_outcomes.csv",
     "figure_04_track_recall.csv",
     "figure_05_frame_trends.csv",
-    "figure_06_cumulative_false_positives.csv",
+    "figure_06_threshold_sweep.csv",
 )
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -600,12 +600,50 @@ def _rolling_frame_rows(
     return output
 
 
+def _load_threshold_sweep(
+    metrics_path: Path,
+) -> tuple[list[dict[str, Any]], float]:
+    metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+    sweep = metrics.get("radar_gate_validation_sweep")
+    if not isinstance(sweep, list):
+        raise ValueError(f"{metrics_path} must contain radar_gate_validation_sweep")
+    expected_thresholds = [integer / 100 for integer in range(10, 19)]
+    thresholds = [float(item["threshold"]) for item in sweep]
+    if thresholds != expected_thresholds:
+        raise ValueError(
+            f"{metrics_path} validation sweep must contain thresholds 0.10 through 0.18"
+        )
+    selected_threshold = float(metrics["configuration"]["selected_radar_gate_threshold"])
+    if selected_threshold not in expected_thresholds:
+        raise ValueError(f"{metrics_path} selected threshold is outside the sweep")
+    rows = []
+    for item in sweep:
+        threshold = float(item["threshold"])
+        overall = item["validation"]["overall"]
+        rows.append(
+            {
+                "split": "val",
+                "threshold": threshold,
+                "threshold_label": f"{threshold:.2f}",
+                "tp": int(overall["tp"]),
+                "fp": int(overall["fp"]),
+                "fn": int(overall["fn"]),
+                "precision": float(overall["precision"]),
+                "recall": float(overall["recall"]),
+                "f1": float(overall["f1"]),
+                "selected": threshold == selected_threshold,
+            }
+        )
+    return rows, selected_threshold
+
+
 def _figure_inputs(
     output_dir: Path,
     method_rows: Sequence[Mapping[str, Any]],
     class_rows: Sequence[Mapping[str, Any]],
     track_rows: Sequence[Mapping[str, Any]],
     rolling_rows: Sequence[Mapping[str, Any]],
+    threshold_sweep_rows: Sequence[Mapping[str, Any]],
 ) -> None:
     quality_rows = [
         {
@@ -658,14 +696,6 @@ def _figure_inputs(
         }
         for row in rolling_rows
     ]
-    cumulative_rows = [
-        {
-            "method": row["method"],
-            "camera_frame": row["camera_frame"],
-            "cumulative_fp": row["cumulative_fp"],
-        }
-        for row in rolling_rows
-    ]
     _write_csv(
         output_dir / "figure_01_overall_quality.csv",
         quality_rows,
@@ -692,9 +722,20 @@ def _figure_inputs(
         ("method", "camera_frame", "rolling_recall", "rolling_f1"),
     )
     _write_csv(
-        output_dir / "figure_06_cumulative_false_positives.csv",
-        cumulative_rows,
-        ("method", "camera_frame", "cumulative_fp"),
+        output_dir / "figure_06_threshold_sweep.csv",
+        threshold_sweep_rows,
+        (
+            "split",
+            "threshold",
+            "threshold_label",
+            "tp",
+            "fp",
+            "fn",
+            "precision",
+            "recall",
+            "f1",
+            "selected",
+        ),
     )
 
 
@@ -712,6 +753,7 @@ def build_metrics(
     if not 0.0 <= iou_threshold <= 1.0:
         raise ValueError("IoU threshold must be between zero and one")
     truth_by_frame, splits = load_ground_truth(ground_truth_path)
+    threshold_sweep_rows, selected_threshold = _load_threshold_sweep(fallback_metrics_path)
     prediction_sources = {
         "vision_only_tiled": load_predictions(vision_path, "detections"),
         "radar_confidence_gated": load_predictions(radar_gated_path, "detections"),
@@ -941,6 +983,7 @@ def build_metrics(
         class_rows,
         track_rows,
         rolling_rows,
+        threshold_sweep_rows,
     )
 
     source_manifest = []
@@ -971,6 +1014,18 @@ def build_metrics(
             "sha256": _sha256(ground_truth_path),
         },
         "prediction_sources": source_manifest,
+        "validation_threshold_sweep": {
+            "source_path": _relative_or_absolute(fallback_metrics_path),
+            "sha256": _sha256(fallback_metrics_path),
+            "split": "val",
+            "threshold_first": 0.10,
+            "threshold_last": 0.18,
+            "threshold_step": 0.01,
+            "threshold_count": len(threshold_sweep_rows),
+            "selected_threshold": selected_threshold,
+            "selection_metric": "overall_f1",
+            "tie_break": "higher_threshold",
+        },
         "fallback_used": fallback_metrics is not None,
         "fallback_notice": (
             "radar-bounded_full.jsonl is absent. Aggregate radar-bounded method and "

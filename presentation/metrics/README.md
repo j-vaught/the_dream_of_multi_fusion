@@ -21,6 +21,12 @@ The file `metrics_manifest.json` records input hashes, the matching contract,
 the selected prediction source for each method, and whether detailed records
 were available.
 
+The six figures cover overall quality, class recall, detection outcomes,
+per-track recall, per-frame trends, and the validation threshold sweep from
+0.10 through 0.18. The sweep CSV retains overall true positives, false
+positives, false negatives, precision, recall, and F1 for every candidate
+threshold. It also marks the selected threshold of 0.16.
+
 The radar-bounded prediction file is
 `experiments/detection_comparison/radar_bounded_full.jsonl`. Each JSONL record
 must contain `camera_frame` and a `remapped_deduped` list. When that file is

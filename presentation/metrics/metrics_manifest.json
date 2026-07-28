@@ -32,7 +32,7 @@
     "figure_03_detection_outcomes.csv",
     "figure_04_track_recall.csv",
     "figure_05_frame_trends.csv",
-    "figure_06_cumulative_false_positives.csv"
+    "figure_06_threshold_sweep.csv"
   ],
   "prediction_sources": [
     {
@@ -60,5 +60,17 @@
       "sha256": "1fbb6ed52d094f158b8f8ee34cb7985bf9d56144bb6bf8f24c2e378498b6f67f"
     }
   ],
-  "schema_version": "1.0"
+  "schema_version": "1.0",
+  "validation_threshold_sweep": {
+    "selected_threshold": 0.16,
+    "selection_metric": "overall_f1",
+    "sha256": "6014d9727f058f28a25b0b9f5bbb9d6c84278eed7af735e84275f65a993a4536",
+    "source_path": "experiments/detection_comparison/metrics.json",
+    "split": "val",
+    "threshold_count": 9,
+    "threshold_first": 0.1,
+    "threshold_last": 0.18,
+    "threshold_step": 0.01,
+    "tie_break": "higher_threshold"
+  }
 }

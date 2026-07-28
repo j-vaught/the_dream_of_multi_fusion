@@ -140,6 +140,35 @@ class PresentationMetricsIntegrationTest(unittest.TestCase):
                 for metric in ("precision", "recall", "f1"):
                     self.assertAlmostEqual(float(actual[metric]), expected[metric])
 
+            sweep_rows = read_csv(output / "figure_06_threshold_sweep.csv")
+            self.assertEqual(len(sweep_rows), 9)
+            self.assertEqual(
+                [row["threshold_label"] for row in sweep_rows],
+                [f"{integer / 100:.2f}" for integer in range(10, 19)],
+            )
+            selected_rows = [row for row in sweep_rows if row["selected"] == "True"]
+            self.assertEqual(len(selected_rows), 1)
+            self.assertEqual(selected_rows[0]["threshold_label"], "0.16")
+            for actual, expected in zip(
+                sweep_rows,
+                committed["radar_gate_validation_sweep"],
+                strict=True,
+            ):
+                overall = expected["validation"]["overall"]
+                for count in ("tp", "fp", "fn"):
+                    self.assertEqual(int(actual[count]), overall[count])
+                for metric in ("precision", "recall", "f1"):
+                    self.assertAlmostEqual(float(actual[metric]), overall[metric])
+            self.assertEqual(
+                manifest["validation_threshold_sweep"]["selected_threshold"],
+                0.16,
+            )
+            self.assertIn("figure_06_threshold_sweep.csv", manifest["outputs"])
+            self.assertNotIn(
+                "figure_06_cumulative_false_positives.csv",
+                manifest["outputs"],
+            )
+
             frame_rows = read_csv(output / "frame_metrics.csv")
             track_rows = read_csv(output / "track_metrics.csv")
             self.assertEqual(len(frame_rows), 900)
