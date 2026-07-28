@@ -4,8 +4,12 @@ import json
 import unittest
 from pathlib import Path
 
+from PIL import Image
+
 from presentation.media.gate.generate_gate_media import (
     ASSET_FILES,
+    FALSE_POSITIVE_HOLD_FRAMES,
+    FALSE_POSITIVE_POSTER_FRAME,
     FINAL_PREDICTIONS,
     GLOBAL_THRESHOLD,
     GROUND_TRUTH,
@@ -129,6 +133,7 @@ class GateAssetTests(unittest.TestCase):
         records = {record["path"]: record for record in self.manifest["assets"]}
         for filename in (
             "gate_acceptance_animation.mp4",
+            "radar_gated_false_positive_episode.mp4",
             "correct_predictions_over_dashed_ground_truth.mp4",
         ):
             record = records[filename]
@@ -138,6 +143,8 @@ class GateAssetTests(unittest.TestCase):
             self.assertEqual(record["frame_count"], 180)
             self.assertEqual(record["pixel_format"], "yuv420p")
             self.assertAlmostEqual(record["duration_seconds"], 3.0)
+            self.assertEqual(record["audio_stream_count"], 0)
+            self.assertEqual(record["loop_metadata"], [])
 
     def test_manifest_records_geometry_and_frame_provenance(self) -> None:
         selections = self.manifest["selections"]
@@ -161,12 +168,35 @@ class GateAssetTests(unittest.TestCase):
         )
         self.assertEqual(
             selections["false_positive_episode"],
-            [393, 394, 395, 396],
+            {
+                "camera_frames": [393, 394, 395, 396],
+                "false_positive_box_color": "#CC2E40",
+                "false_positive_camera_frames": [394, 395],
+                "hold_frames_per_camera_frame": FALSE_POSITIVE_HOLD_FRAMES,
+                "poster_camera_frame": FALSE_POSITIVE_POSTER_FRAME,
+            },
         )
         self.assertEqual(
             selections["correct_prediction_sequence"],
             list(range(119, 179)),
         )
+
+    def test_false_positive_video_and_poster_share_verified_episode(self) -> None:
+        records = {record["path"]: record for record in self.manifest["assets"]}
+        video = records["radar_gated_false_positive_episode.mp4"]
+        poster = records["radar_gated_false_positive_episode_poster.png"]
+        self.assertEqual(video["camera_frames"], [393, 394, 395, 396])
+        self.assertEqual(poster["camera_frames"], [394])
+        self.assertEqual(
+            video["frame_count"],
+            4 * FALSE_POSITIVE_HOLD_FRAMES,
+        )
+
+        with Image.open(OUTPUT_DIR / "radar_gated_false_positive_episode_poster.png") as image:
+            red_pixel_count = sum(
+                pixel == (204, 46, 64) for pixel in image.convert("RGB").get_flattened_data()
+            )
+        self.assertGreater(red_pixel_count, 1000)
 
     def test_source_hashes_are_current(self) -> None:
         for source in self.manifest["sources"]:

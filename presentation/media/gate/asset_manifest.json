@@ -32,6 +32,7 @@
       "width": 1920
     },
     {
+      "audio_stream_count": 0,
       "avg_frame_rate": "60/1",
       "burned_in_text": false,
       "camera_frames": [
@@ -43,6 +44,7 @@
       "duration_seconds": 3.0,
       "frame_count": 180,
       "height": 1080,
+      "loop_metadata": [],
       "media_type": "video/mp4",
       "path": "gate_acceptance_animation.mp4",
       "pixel_format": "yuv420p",
@@ -65,6 +67,40 @@
       "width": 1920
     },
     {
+      "audio_stream_count": 0,
+      "avg_frame_rate": "60/1",
+      "burned_in_text": false,
+      "camera_frames": [
+        393,
+        394,
+        395,
+        396
+      ],
+      "codec": "h264",
+      "duration_seconds": 3.0,
+      "frame_count": 180,
+      "height": 1080,
+      "loop_metadata": [],
+      "media_type": "video/mp4",
+      "path": "radar_gated_false_positive_episode.mp4",
+      "pixel_format": "yuv420p",
+      "r_frame_rate": "60/1",
+      "sha256": "0fccd608a735c6f47ad34f6a4c8ffa735b7e3df065d981df2a3f8f050f18b2ee",
+      "width": 1920
+    },
+    {
+      "burned_in_text": false,
+      "camera_frames": [
+        394
+      ],
+      "height": 1080,
+      "media_type": "image/png",
+      "path": "radar_gated_false_positive_episode_poster.png",
+      "sha256": "97deacd3b94244ea09aa05cf50caa7326ac659ac682acd1b04495157cba8136f",
+      "width": 1920
+    },
+    {
+      "audio_stream_count": 0,
       "avg_frame_rate": "60/1",
       "burned_in_text": false,
       "camera_frames": [
@@ -133,6 +169,7 @@
       "duration_seconds": 3.0,
       "frame_count": 180,
       "height": 1080,
+      "loop_metadata": [],
       "media_type": "video/mp4",
       "path": "correct_predictions_over_dashed_ground_truth.mp4",
       "pixel_format": "yuv420p",
@@ -245,12 +282,21 @@
       177,
       178
     ],
-    "false_positive_episode": [
-      393,
-      394,
-      395,
-      396
-    ],
+    "false_positive_episode": {
+      "camera_frames": [
+        393,
+        394,
+        395,
+        396
+      ],
+      "false_positive_box_color": "#CC2E40",
+      "false_positive_camera_frames": [
+        394,
+        395
+      ],
+      "hold_frames_per_camera_frame": 45,
+      "poster_camera_frame": 394
+    },
     "ioa_geometry": {
       "accepted_candidate_area_fraction": 0.25,
       "accepted_center_inside": false,

@@ -16,3 +16,7 @@ YOLO ground truth, and the raw source video. It does not render or duplicate
 the existing prediction-only base video. `asset_manifest.json` records source
 hashes, selected camera frames, geometry provenance, media properties, and
 output hashes.
+
+The radar-gated false-positive episode is delivered as a text-free 60 FPS
+video and a matching poster. Camera frames 393 through 396 show the verified
+two-frame false-positive event at frames 394 and 395 with red boxes.

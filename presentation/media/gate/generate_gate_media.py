@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -51,6 +52,8 @@ GLOBAL_THRESHOLD = 0.18
 RADAR_THRESHOLD = 0.16
 MINIMUM_IOA = 0.25
 IOU_THRESHOLD = 0.5
+FALSE_POSITIVE_HOLD_FRAMES = 45
+FALSE_POSITIVE_POSTER_FRAME = 394
 
 COLORS = {
     "garnet": "#73000A",
@@ -73,6 +76,8 @@ ASSET_FILES = (
     "ioa_25_and_touching_rejection.png",
     "gate_acceptance_animation.mp4",
     "false_positive_episode_montage.png",
+    "radar_gated_false_positive_episode.mp4",
+    "radar_gated_false_positive_episode_poster.png",
     "correct_predictions_over_dashed_ground_truth.mp4",
 )
 
@@ -842,6 +847,49 @@ def false_positive_montage_figure(
     return figure
 
 
+def false_positive_episode_figure(
+    raw_frame: Path,
+    camera_frame: int,
+    ground_truth: Sequence[dict[str, Any]],
+    predictions: Sequence[dict[str, Any]],
+    build_dir: Path,
+) -> dict[str, Any]:
+    crop = [2450.0, 1300.0, 3250.0, 1750.0]
+    panel = [0.0, 0.0, LAYOUT_WIDTH, LAYOUT_HEIGHT]
+    prepared = prepare_panel_image(
+        raw_frame,
+        crop,
+        build_dir,
+        f"false_positive_episode_source_{camera_frame}",
+        panel,
+    )
+    figure = empty_figure()
+    figure["images"].append(image_item(prepared, panel))
+    true_positives, false_positives, _ = categorize_detections(
+        ground_truth,
+        predictions,
+    )
+    for _, truth, _ in true_positives:
+        if truth["class_name"] == "boat":
+            figure["rectangles"].append(
+                rectangle(
+                    project_box(truth["bbox_xyxy"], crop, panel),
+                    COLORS["white"],
+                    3.0,
+                    dash="dashed",
+                )
+            )
+    for prediction in false_positives:
+        figure["rectangles"].append(
+            rectangle(
+                project_box(prediction["bbox_xyxy"], crop, panel),
+                COLORS["rose"],
+                6.0,
+            )
+        )
+    return figure
+
+
 def correct_prediction_figure(
     raw_frame: Path,
     camera_frame: int,
@@ -931,12 +979,12 @@ def probe_video(path: Path) -> dict[str, Any]:
             "ffprobe",
             "-v",
             "error",
-            "-select_streams",
-            "v:0",
             "-show_entries",
-            "stream=codec_name,width,height,r_frame_rate,avg_frame_rate,nb_frames,pix_fmt",
-            "-show_entries",
-            "format=duration",
+            (
+                "stream=codec_type,codec_name,width,height,r_frame_rate,"
+                "avg_frame_rate,nb_frames,pix_fmt:stream_tags=loop:"
+                "format=duration:format_tags=loop"
+            ),
             "-of",
             "json",
             str(path),
@@ -946,7 +994,15 @@ def probe_video(path: Path) -> dict[str, Any]:
         text=True,
     )
     payload = json.loads(result.stdout)
-    stream = payload["streams"][0]
+    streams = payload["streams"]
+    stream = next(item for item in streams if item["codec_type"] == "video")
+    loop_metadata = []
+    format_loop = payload.get("format", {}).get("tags", {}).get("loop")
+    if format_loop is not None:
+        loop_metadata.append(format_loop)
+    loop_metadata.extend(
+        item["tags"]["loop"] for item in streams if item.get("tags", {}).get("loop") is not None
+    )
     return {
         "codec": stream["codec_name"],
         "width": int(stream["width"]),
@@ -956,6 +1012,8 @@ def probe_video(path: Path) -> dict[str, Any]:
         "frame_count": int(stream["nb_frames"]),
         "pixel_format": stream["pix_fmt"],
         "duration_seconds": float(payload["format"]["duration"]),
+        "audio_stream_count": sum(item["codec_type"] == "audio" for item in streams),
+        "loop_metadata": loop_metadata,
     }
 
 
@@ -983,6 +1041,8 @@ def build_manifest(
             examples[key]["camera_frame"] for key in ("high", "center", "low")
         ],
         "false_positive_episode_montage.png": list(false_positive_frames),
+        "radar_gated_false_positive_episode.mp4": list(false_positive_frames),
+        "radar_gated_false_positive_episode_poster.png": [FALSE_POSITIVE_POSTER_FRAME],
         "correct_predictions_over_dashed_ground_truth.mp4": list(correct_frames),
     }
     for filename in ASSET_FILES:
@@ -1061,7 +1121,13 @@ def build_manifest(
                 }
                 for key, example in examples.items()
             },
-            "false_positive_episode": list(false_positive_frames),
+            "false_positive_episode": {
+                "camera_frames": list(false_positive_frames),
+                "false_positive_camera_frames": [394, 395],
+                "poster_camera_frame": FALSE_POSITIVE_POSTER_FRAME,
+                "hold_frames_per_camera_frame": FALSE_POSITIVE_HOLD_FRAMES,
+                "false_positive_box_color": COLORS["rose"],
+            },
             "correct_prediction_sequence": list(correct_frames),
         },
         "assets": assets,
@@ -1181,6 +1247,42 @@ def main() -> None:
             output_dir / "false_positive_episode_montage.png",
             build_dir,
             "false_positive_episode_montage",
+        )
+
+        false_positive_keyframes = build_dir / "false_positive_episode"
+        false_positive_keyframes.mkdir()
+        for sequence_index, camera_frame in enumerate(false_positive_frames):
+            compile_figure(
+                false_positive_episode_figure(
+                    raw_frames[camera_frame],
+                    camera_frame,
+                    ground_truth_by_frame[camera_frame],
+                    predictions_by_frame.get(camera_frame, []),
+                    build_dir,
+                ),
+                false_positive_keyframes / f"{sequence_index:06d}.png",
+                build_dir,
+                f"false_positive_episode_{camera_frame}",
+            )
+        poster_index = false_positive_frames.index(FALSE_POSITIVE_POSTER_FRAME)
+        shutil.copyfile(
+            false_positive_keyframes / f"{poster_index:06d}.png",
+            output_dir / "radar_gated_false_positive_episode_poster.png",
+        )
+        false_positive_sequence = build_dir / "false_positive_episode_sequence"
+        false_positive_sequence.mkdir()
+        output_index = 0
+        for sequence_index in range(len(false_positive_frames)):
+            source = false_positive_keyframes / f"{sequence_index:06d}.png"
+            for _ in range(FALSE_POSITIVE_HOLD_FRAMES):
+                (false_positive_sequence / f"{output_index:06d}.png").symlink_to(source)
+                output_index += 1
+        encode_sequence(
+            false_positive_sequence,
+            output_dir / "radar_gated_false_positive_episode.mp4",
+            FPS,
+            FPS,
+            len(false_positive_frames) * FALSE_POSITIVE_HOLD_FRAMES,
         )
 
         correct_sequence = build_dir / "correct_sequence"
