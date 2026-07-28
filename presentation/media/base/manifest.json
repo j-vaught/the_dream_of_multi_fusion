@@ -1,0 +1,864 @@
+{
+  "assets": [
+    {
+      "id": "ground_truth",
+      "poster": {
+        "ffprobe": {
+          "format": {
+            "format_name": "png_pipe",
+            "size": "1433897"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "25/1",
+              "codec_long_name": "PNG (Portable Network Graphics) image",
+              "codec_name": "png",
+              "codec_type": "video",
+              "coded_height": 1094,
+              "coded_width": 1920,
+              "height": 1094,
+              "index": 0,
+              "level": -99,
+              "pix_fmt": "rgb24",
+              "r_frame_rate": "25/1",
+              "time_base": "1/25",
+              "width": 1920
+            }
+          ]
+        },
+        "path": "ground_truth.poster.png",
+        "sha256": "5d9aabb689629a7166a39c425ccce279e94fb545b06b55cdccca811b36d5bd97"
+      },
+      "source": {
+        "ffprobe": {
+          "format": {
+            "bit_rate": "191345201",
+            "duration": "15.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "358772253",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "20/1",
+              "bit_rate": "191342649",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 3032,
+              "coded_width": 5320,
+              "duration": "15.000000",
+              "height": 3032,
+              "index": 0,
+              "level": 60,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "20/1",
+              "start_time": "0.000000",
+              "time_base": "1/10240",
+              "width": 5320
+            }
+          ]
+        },
+        "path": "07_ground_truth_full_resolution.mp4",
+        "sha256": "f78fd9ceb99336032d9e351db32d1f77b8f7c0266ec063f84e795cb7d7047d8e"
+      },
+      "video": {
+        "checks": {
+          "bit_rate": true,
+          "codec": true,
+          "duration": true,
+          "faststart": true,
+          "frame_count": true,
+          "frame_rate": true,
+          "max_width": true,
+          "pixel_format": true
+        },
+        "ffprobe": {
+          "format": {
+            "bit_rate": "5593256",
+            "duration": "5.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "3495785",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "60/1",
+              "bit_rate": "5586073",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1094,
+              "coded_width": 1920,
+              "duration": "5.000000",
+              "height": 1094,
+              "index": 0,
+              "level": 42,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "60/1",
+              "start_time": "0.000000",
+              "time_base": "1/60000",
+              "width": 1920
+            }
+          ]
+        },
+        "mp4_atom_offsets": {
+          "mdat": 4481,
+          "moov": 32
+        },
+        "path": "ground_truth.mp4",
+        "sha256": "d92c5f4a18ed94639c95f4f25e457f7beacd17d8a1763c080252ca8dc7113660"
+      }
+    },
+    {
+      "id": "vision_only_predictions",
+      "poster": {
+        "ffprobe": {
+          "format": {
+            "format_name": "png_pipe",
+            "size": "1439142"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "25/1",
+              "codec_long_name": "PNG (Portable Network Graphics) image",
+              "codec_name": "png",
+              "codec_type": "video",
+              "coded_height": 1094,
+              "coded_width": 1920,
+              "height": 1094,
+              "index": 0,
+              "level": -99,
+              "pix_fmt": "rgb24",
+              "r_frame_rate": "25/1",
+              "time_base": "1/25",
+              "width": 1920
+            }
+          ]
+        },
+        "path": "vision_only_predictions.poster.png",
+        "sha256": "e41b3b518b81cff99b2515a36285adfaa06c5bc54f497a36dcbe08a49723ed9e"
+      },
+      "source": {
+        "ffprobe": {
+          "format": {
+            "bit_rate": "191324972",
+            "duration": "15.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "358734324",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "20/1",
+              "bit_rate": "191322420",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 3032,
+              "coded_width": 5320,
+              "duration": "15.000000",
+              "height": 3032,
+              "index": 0,
+              "level": 60,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "20/1",
+              "start_time": "0.000000",
+              "time_base": "1/10240",
+              "width": 5320
+            }
+          ]
+        },
+        "path": "08_exp1_vision_only_detections.mp4",
+        "sha256": "6a74f223caf5ea59daf1ec22a9f75bde94fa0eddedff56cccd08bd4ae85f12e7"
+      },
+      "video": {
+        "checks": {
+          "bit_rate": true,
+          "codec": true,
+          "duration": true,
+          "faststart": true,
+          "frame_count": true,
+          "frame_rate": true,
+          "max_width": true,
+          "pixel_format": true
+        },
+        "ffprobe": {
+          "format": {
+            "bit_rate": "5594478",
+            "duration": "5.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "3496549",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "60/1",
+              "bit_rate": "5587296",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1094,
+              "coded_width": 1920,
+              "duration": "5.000000",
+              "height": 1094,
+              "index": 0,
+              "level": 42,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "60/1",
+              "start_time": "0.000000",
+              "time_base": "1/60000",
+              "width": 1920
+            }
+          ]
+        },
+        "mp4_atom_offsets": {
+          "mdat": 4481,
+          "moov": 32
+        },
+        "path": "vision_only_predictions.mp4",
+        "sha256": "4395e869382befde7d543d93e960ce079a4268389922b4b64a6f34886076eab3"
+      }
+    },
+    {
+      "id": "radar_gated_predictions",
+      "poster": {
+        "ffprobe": {
+          "format": {
+            "format_name": "png_pipe",
+            "size": "1440026"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "25/1",
+              "codec_long_name": "PNG (Portable Network Graphics) image",
+              "codec_name": "png",
+              "codec_type": "video",
+              "coded_height": 1094,
+              "coded_width": 1920,
+              "height": 1094,
+              "index": 0,
+              "level": -99,
+              "pix_fmt": "rgb24",
+              "r_frame_rate": "25/1",
+              "time_base": "1/25",
+              "width": 1920
+            }
+          ]
+        },
+        "path": "radar_gated_predictions.poster.png",
+        "sha256": "ca95518b1e3a42750084564c5c52ac7271d12b923ea2adf4e63c217d59ad060e"
+      },
+      "source": {
+        "ffprobe": {
+          "format": {
+            "bit_rate": "191313088",
+            "duration": "15.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "358712041",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "20/1",
+              "bit_rate": "191310536",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 3032,
+              "coded_width": 5320,
+              "duration": "15.000000",
+              "height": 3032,
+              "index": 0,
+              "level": 60,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "20/1",
+              "start_time": "0.000000",
+              "time_base": "1/10240",
+              "width": 5320
+            }
+          ]
+        },
+        "path": "09_exp2_radar_confidence_gated_detections.mp4",
+        "sha256": "74b5e2fff211639c95217d0710bd354b0ebb4d32eb230ae625011bb8f21867fe"
+      },
+      "video": {
+        "checks": {
+          "bit_rate": true,
+          "codec": true,
+          "duration": true,
+          "faststart": true,
+          "frame_count": true,
+          "frame_rate": true,
+          "max_width": true,
+          "pixel_format": true
+        },
+        "ffprobe": {
+          "format": {
+            "bit_rate": "5593460",
+            "duration": "5.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "3495913",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "60/1",
+              "bit_rate": "5586278",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1094,
+              "coded_width": 1920,
+              "duration": "5.000000",
+              "height": 1094,
+              "index": 0,
+              "level": 42,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "60/1",
+              "start_time": "0.000000",
+              "time_base": "1/60000",
+              "width": 1920
+            }
+          ]
+        },
+        "mp4_atom_offsets": {
+          "mdat": 4481,
+          "moov": 32
+        },
+        "path": "radar_gated_predictions.mp4",
+        "sha256": "c1d454813212613dddab7e18119aa8938008d9a1c96b9075651d9e88b7e74924"
+      }
+    },
+    {
+      "id": "radar_bounded_predictions",
+      "poster": {
+        "ffprobe": {
+          "format": {
+            "format_name": "png_pipe",
+            "size": "1440622"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "25/1",
+              "codec_long_name": "PNG (Portable Network Graphics) image",
+              "codec_name": "png",
+              "codec_type": "video",
+              "coded_height": 1094,
+              "coded_width": 1920,
+              "height": 1094,
+              "index": 0,
+              "level": -99,
+              "pix_fmt": "rgb24",
+              "r_frame_rate": "25/1",
+              "time_base": "1/25",
+              "width": 1920
+            }
+          ]
+        },
+        "path": "radar_bounded_predictions.poster.png",
+        "sha256": "f7936270e1e2bd064ba81822dee99790390a46778bc7e6a77b5ed06f24030060"
+      },
+      "source": {
+        "ffprobe": {
+          "format": {
+            "bit_rate": "191346874",
+            "duration": "15.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "358775389",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "20/1",
+              "bit_rate": "191344330",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 3032,
+              "coded_width": 5320,
+              "duration": "15.000000",
+              "height": 3032,
+              "index": 0,
+              "level": 60,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "20/1",
+              "start_time": "0.000000",
+              "time_base": "1/10240",
+              "width": 5320
+            }
+          ]
+        },
+        "path": "10_exp3_radar_bounded_detections.mp4",
+        "sha256": "a00d0470f415b8c01268aea36743ce4eb0876497f7c6d7b35b32fd884acc86d6"
+      },
+      "video": {
+        "checks": {
+          "bit_rate": true,
+          "codec": true,
+          "duration": true,
+          "faststart": true,
+          "frame_count": true,
+          "frame_rate": true,
+          "max_width": true,
+          "pixel_format": true
+        },
+        "ffprobe": {
+          "format": {
+            "bit_rate": "5592004",
+            "duration": "5.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "3495003",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "60/1",
+              "bit_rate": "5584841",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1094,
+              "coded_width": 1920,
+              "duration": "5.000000",
+              "height": 1094,
+              "index": 0,
+              "level": 42,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "60/1",
+              "start_time": "0.000000",
+              "time_base": "1/60000",
+              "width": 1920
+            }
+          ]
+        },
+        "mp4_atom_offsets": {
+          "mdat": 4469,
+          "moov": 32
+        },
+        "path": "radar_bounded_predictions.mp4",
+        "sha256": "111699631c40fd27a1d773c5812cf572a0963b640b755ef26d0c1db7f915bbb3"
+      }
+    },
+    {
+      "id": "zoom_vision_only",
+      "poster": {
+        "ffprobe": {
+          "format": {
+            "format_name": "png_pipe",
+            "size": "1786030"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "25/1",
+              "codec_long_name": "PNG (Portable Network Graphics) image",
+              "codec_name": "png",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "height": 1500,
+              "index": 0,
+              "level": -99,
+              "pix_fmt": "rgb24",
+              "r_frame_rate": "25/1",
+              "time_base": "1/25",
+              "width": 1800
+            }
+          ]
+        },
+        "path": "zoom_vision_only.poster.png",
+        "sha256": "7e385cb0bc0097c98bc72bef189e2c30f86f7f567af9aa9be604c2750917929f"
+      },
+      "source": {
+        "ffprobe": {
+          "format": {
+            "bit_rate": "23581732",
+            "duration": "15.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "44215748",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "20/1",
+              "bit_rate": "23579821",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "duration": "15.000000",
+              "height": 1500,
+              "index": 0,
+              "level": 50,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "Main",
+              "r_frame_rate": "20/1",
+              "start_time": "0.000000",
+              "time_base": "1/10240",
+              "width": 1800
+            }
+          ]
+        },
+        "path": "11_zoom_exp1_vision_only.mp4",
+        "sha256": "21afcd6001b156219226efe73f6b647700f7639988ae147edc43b7cf76c6ed84"
+      },
+      "video": {
+        "checks": {
+          "bit_rate": true,
+          "codec": true,
+          "duration": true,
+          "faststart": true,
+          "frame_count": true,
+          "frame_rate": true,
+          "max_width": true,
+          "pixel_format": true
+        },
+        "ffprobe": {
+          "format": {
+            "bit_rate": "5598446",
+            "duration": "5.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "3499029",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "60/1",
+              "bit_rate": "5591286",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "duration": "5.000000",
+              "height": 1500,
+              "index": 0,
+              "level": 51,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "60/1",
+              "start_time": "0.000000",
+              "time_base": "1/60000",
+              "width": 1800
+            }
+          ]
+        },
+        "mp4_atom_offsets": {
+          "mdat": 4467,
+          "moov": 32
+        },
+        "path": "zoom_vision_only.mp4",
+        "sha256": "c68e7173479bfaae937bff9f5b4b7036a8daba85c19d4b617d3720bd949034c8"
+      }
+    },
+    {
+      "id": "zoom_radar_gated",
+      "poster": {
+        "ffprobe": {
+          "format": {
+            "format_name": "png_pipe",
+            "size": "1786030"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "25/1",
+              "codec_long_name": "PNG (Portable Network Graphics) image",
+              "codec_name": "png",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "height": 1500,
+              "index": 0,
+              "level": -99,
+              "pix_fmt": "rgb24",
+              "r_frame_rate": "25/1",
+              "time_base": "1/25",
+              "width": 1800
+            }
+          ]
+        },
+        "path": "zoom_radar_gated.poster.png",
+        "sha256": "7e385cb0bc0097c98bc72bef189e2c30f86f7f567af9aa9be604c2750917929f"
+      },
+      "source": {
+        "ffprobe": {
+          "format": {
+            "bit_rate": "23587945",
+            "duration": "15.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "44227398",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "20/1",
+              "bit_rate": "23586022",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "duration": "15.000000",
+              "height": 1500,
+              "index": 0,
+              "level": 50,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "Main",
+              "r_frame_rate": "20/1",
+              "start_time": "0.000000",
+              "time_base": "1/10240",
+              "width": 1800
+            }
+          ]
+        },
+        "path": "12_zoom_exp2_radar_gated.mp4",
+        "sha256": "f11034be340ea43cd14965b23fa452364c45471e15b913f42b8fd493e69436c8"
+      },
+      "video": {
+        "checks": {
+          "bit_rate": true,
+          "codec": true,
+          "duration": true,
+          "faststart": true,
+          "frame_count": true,
+          "frame_rate": true,
+          "max_width": true,
+          "pixel_format": true
+        },
+        "ffprobe": {
+          "format": {
+            "bit_rate": "5599276",
+            "duration": "5.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "3499548",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "60/1",
+              "bit_rate": "5592116",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "duration": "5.000000",
+              "height": 1500,
+              "index": 0,
+              "level": 51,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "60/1",
+              "start_time": "0.000000",
+              "time_base": "1/60000",
+              "width": 1800
+            }
+          ]
+        },
+        "mp4_atom_offsets": {
+          "mdat": 4467,
+          "moov": 32
+        },
+        "path": "zoom_radar_gated.mp4",
+        "sha256": "32773580b3506fd2fd4e424c63f61b12719b8511030792f47bddfa3fcb84e65c"
+      }
+    },
+    {
+      "id": "zoom_radar_bounded",
+      "poster": {
+        "ffprobe": {
+          "format": {
+            "format_name": "png_pipe",
+            "size": "1789094"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "25/1",
+              "codec_long_name": "PNG (Portable Network Graphics) image",
+              "codec_name": "png",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "height": 1500,
+              "index": 0,
+              "level": -99,
+              "pix_fmt": "rgb24",
+              "r_frame_rate": "25/1",
+              "time_base": "1/25",
+              "width": 1800
+            }
+          ]
+        },
+        "path": "zoom_radar_bounded.poster.png",
+        "sha256": "4ea9f90fee1d65d0f0dda0577876a6e478b5e4e60de73006ddb7d727727f9166"
+      },
+      "source": {
+        "ffprobe": {
+          "format": {
+            "bit_rate": "23556917",
+            "duration": "15.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "44169221",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "20/1",
+              "bit_rate": "23554994",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "duration": "15.000000",
+              "height": 1500,
+              "index": 0,
+              "level": 50,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "Main",
+              "r_frame_rate": "20/1",
+              "start_time": "0.000000",
+              "time_base": "1/10240",
+              "width": 1800
+            }
+          ]
+        },
+        "path": "13_zoom_exp3_radar_bounded.mp4",
+        "sha256": "b30e07349ec95fc3adab9901516adb4eddb3bcd471b2244eef060d0ec9b18a76"
+      },
+      "video": {
+        "checks": {
+          "bit_rate": true,
+          "codec": true,
+          "duration": true,
+          "faststart": true,
+          "frame_count": true,
+          "frame_rate": true,
+          "max_width": true,
+          "pixel_format": true
+        },
+        "ffprobe": {
+          "format": {
+            "bit_rate": "5603196",
+            "duration": "5.000000",
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "size": "3501998",
+            "start_time": "0.000000"
+          },
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "avg_frame_rate": "60/1",
+              "bit_rate": "5596017",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "codec_name": "h264",
+              "codec_type": "video",
+              "coded_height": 1500,
+              "coded_width": 1800,
+              "duration": "5.000000",
+              "height": 1500,
+              "index": 0,
+              "level": 51,
+              "nb_frames": "300",
+              "pix_fmt": "yuv420p",
+              "profile": "High",
+              "r_frame_rate": "60/1",
+              "start_time": "0.000000",
+              "time_base": "1/60000",
+              "width": 1800
+            }
+          ]
+        },
+        "mp4_atom_offsets": {
+          "mdat": 4479,
+          "moov": 32
+        },
+        "path": "zoom_radar_bounded.mp4",
+        "sha256": "db429f2c13db8ea973193aea5552fe07b397205a1c7c536908a82bf304852d29"
+      }
+    }
+  ],
+  "encoding": {
+    "audio": false,
+    "buffer_size": 12000000,
+    "duration_seconds": 5.0,
+    "faststart": true,
+    "frame_count": 300,
+    "frame_rate": "60/1",
+    "max_bit_rate": 6000000,
+    "max_width": 1920,
+    "pixel_format": "yuv420p",
+    "poster_frame": 0,
+    "scale_filter": "lanczos",
+    "target_bit_rate": 5500000,
+    "video_codec": "libx264"
+  },
+  "schema_version": 1,
+  "toolchain": {
+    "ffmpeg": "ffmpeg version 8.0.1 Copyright (c) 2000-2025 the FFmpeg developers",
+    "ffprobe": "ffprobe version 8.0.1 Copyright (c) 2007-2025 the FFmpeg developers"
+  }
+}
