@@ -1,0 +1,10 @@
+method,metric,value,source_mode,detail_available
+vision_only_tiled,precision,0.9962756052141527,prediction_jsonl,True
+vision_only_tiled,recall,0.21468699839486358,prediction_jsonl,True
+vision_only_tiled,f1,0.353251898316276,prediction_jsonl,True
+radar_confidence_gated,precision,0.9863247863247864,prediction_jsonl,True
+radar_confidence_gated,recall,0.23154093097913322,prediction_jsonl,True
+radar_confidence_gated,f1,0.3750406239844004,prediction_jsonl,True
+radar_bounded_crops,precision,0.6507430997876857,prediction_jsonl,True
+radar_bounded_crops,recall,0.24598715890850723,prediction_jsonl,True
+radar_bounded_crops,f1,0.35701805474665116,prediction_jsonl,True

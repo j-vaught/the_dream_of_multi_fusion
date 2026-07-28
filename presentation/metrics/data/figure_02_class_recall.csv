@@ -1,0 +1,7 @@
+method,class_name,recall,source_mode,detail_available
+vision_only_tiled,boat,1.0,prediction_jsonl,True
+vision_only_tiled,buoy,0.10720802919708029,prediction_jsonl,True
+radar_confidence_gated,boat,1.0,prediction_jsonl,True
+radar_confidence_gated,buoy,0.12636861313868614,prediction_jsonl,True
+radar_bounded_crops,boat,1.0,prediction_jsonl,True
+radar_bounded_crops,buoy,0.14279197080291972,prediction_jsonl,True

@@ -1,0 +1,7 @@
+method,class_name,tp,fp,fn,precision,recall,f1,source_mode,detail_available
+vision_only_tiled,boat,300,2,0,0.9933774834437086,1.0,0.9966777408637874,prediction_jsonl,True
+vision_only_tiled,buoy,235,0,1957,1.0,0.10720802919708029,0.19365471775854964,prediction_jsonl,True
+radar_confidence_gated,boat,300,8,0,0.974025974025974,1.0,0.9868421052631579,prediction_jsonl,True
+radar_confidence_gated,buoy,277,0,1915,1.0,0.12636861313868614,0.2243823410287566,prediction_jsonl,True
+radar_bounded_crops,boat,300,149,0,0.6681514476614699,1.0,0.8010680907877169,prediction_jsonl,True
+radar_bounded_crops,buoy,313,180,1879,0.6348884381338742,0.14279197080291972,0.23314711359404097,prediction_jsonl,True

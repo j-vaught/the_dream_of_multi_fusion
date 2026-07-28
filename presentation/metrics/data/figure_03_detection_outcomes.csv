@@ -1,0 +1,4 @@
+method,tp,fn,fp,source_mode,detail_available
+vision_only_tiled,535,1957,2,prediction_jsonl,True
+radar_confidence_gated,577,1915,8,prediction_jsonl,True
+radar_bounded_crops,613,1879,329,prediction_jsonl,True

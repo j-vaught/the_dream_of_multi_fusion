@@ -1,0 +1,64 @@
+{
+  "fallback_notice": "",
+  "fallback_used": false,
+  "frame_range": {
+    "count": 300,
+    "first": 119,
+    "last": 418
+  },
+  "ground_truth": {
+    "path": "datasets/dream_fusion_yolo/manifest.jsonl",
+    "sha256": "25db67bd75897b32ec085152bf0176169a544432c8ffc63c6ddc6de782077456"
+  },
+  "iou_threshold": 0.5,
+  "matching": {
+    "class_aware": true,
+    "one_to_one": true,
+    "prediction_order": "score_descending_then_bbox_then_source_index",
+    "threshold_inclusive": true,
+    "truth_tie_break": "iou_descending_then_track_id_then_source_index"
+  },
+  "outputs": [
+    "method_metrics.csv",
+    "class_metrics.csv",
+    "track_metrics.csv",
+    "frame_metrics.csv",
+    "frame_class_metrics.csv",
+    "track_frame_matches.csv",
+    "match_events.csv",
+    "frame_rolling_metrics.csv",
+    "figure_01_overall_quality.csv",
+    "figure_02_class_recall.csv",
+    "figure_03_detection_outcomes.csv",
+    "figure_04_track_recall.csv",
+    "figure_05_frame_trends.csv",
+    "figure_06_cumulative_false_positives.csv"
+  ],
+  "prediction_sources": [
+    {
+      "detail_available": true,
+      "method": "vision_only_tiled",
+      "mode": "prediction_jsonl",
+      "requested_path": "experiments/detection_comparison/vision_only_tiled.jsonl",
+      "selected_path": "experiments/detection_comparison/vision_only_tiled.jsonl",
+      "sha256": "9a145b4490e688b7092e65133e2016c564e33a371062bae9ea72bd2d63e89064"
+    },
+    {
+      "detail_available": true,
+      "method": "radar_confidence_gated",
+      "mode": "prediction_jsonl",
+      "requested_path": "experiments/detection_comparison/radar_confidence_gated.jsonl",
+      "selected_path": "experiments/detection_comparison/radar_confidence_gated.jsonl",
+      "sha256": "1018c8cb468d1f3fb77b3cc045aeb7397786b87056ef8f6a4233f2dd6e5aa978"
+    },
+    {
+      "detail_available": true,
+      "method": "radar_bounded_crops",
+      "mode": "prediction_jsonl",
+      "requested_path": "experiments/detection_comparison/radar_bounded_full.jsonl",
+      "selected_path": "experiments/detection_comparison/radar_bounded_full.jsonl",
+      "sha256": "1fbb6ed52d094f158b8f8ee34cb7985bf9d56144bb6bf8f24c2e378498b6f67f"
+    }
+  ],
+  "schema_version": "1.0"
+}

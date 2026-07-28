@@ -1,0 +1,4 @@
+method,class_name,tp,fp,fn,precision,recall,f1,source_mode,detail_available
+vision_only_tiled,overall,535,2,1957,0.9962756052141527,0.21468699839486358,0.353251898316276,prediction_jsonl,True
+radar_confidence_gated,overall,577,8,1915,0.9863247863247864,0.23154093097913322,0.3750406239844004,prediction_jsonl,True
+radar_bounded_crops,overall,613,329,1879,0.6507430997876857,0.24598715890850723,0.35701805474665116,prediction_jsonl,True
