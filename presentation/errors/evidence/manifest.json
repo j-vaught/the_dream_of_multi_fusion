@@ -1,0 +1,1145 @@
+{
+  "categories": {
+    "ambiguous_omitted_objects": [
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2650.597656,
+              1471.955917,
+              2677.71521,
+              1490.85614
+            ],
+            "class_name": "boat",
+            "iou": 0.0,
+            "kind": "false_positive",
+            "method": "radar_bounded_crops",
+            "rendered_bbox_xyxy": [
+              764.260416,
+              474.549112,
+              836.573893,
+              524.949707
+            ],
+            "score": 0.412771
+          }
+        ],
+        "camera_frame": 132,
+        "category": "ambiguous_omitted_objects",
+        "details": {
+          "nearest_ground_truth_iou": 0.0,
+          "temporal_support_frames": [
+            132,
+            133,
+            134,
+            135,
+            136
+          ],
+          "temporal_support_ious": [
+            1.0,
+            0.898077,
+            0.952035,
+            0.929235,
+            0.89191
+          ]
+        },
+        "evidence_image": "ambiguous_omitted_objects/01_cf_000132_radar_bounded_crops.png",
+        "evidence_sha256": "6f0e23de4824f6d7495f545c0a3947e8b902b7feb7801469a1024fcbeaa2033d",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_crops",
+        "rank": 1,
+        "rank_key": [
+          -5,
+          -0.355937,
+          132
+        ],
+        "selection_rationale": "A YOLO-unmatched radar-bounded hypothesis persists with same-class spatial agreement across consecutive frames.",
+        "source_crop_xyxy": [
+          2364,
+          1294,
+          2964,
+          1669
+        ],
+        "source_image": "source/132_rgb.png",
+        "source_sha256": "29b648d71ee6c98d9290dc15af846fc9d09d5ae2b35a2f7545c26077352d11ec"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2940.530457,
+              1479.100479,
+              2963.59906,
+              1489.551987
+            ],
+            "class_name": "boat",
+            "iou": 0.0,
+            "kind": "false_positive",
+            "method": "radar_bounded_crops",
+            "rendered_bbox_xyxy": [
+              769.414552,
+              485.601277,
+              830.930827,
+              513.471965
+            ],
+            "score": 0.192871
+          }
+        ],
+        "camera_frame": 122,
+        "category": "ambiguous_omitted_objects",
+        "details": {
+          "nearest_ground_truth_iou": 0.0,
+          "temporal_support_frames": [
+            122,
+            123,
+            124,
+            125,
+            126
+          ],
+          "temporal_support_ious": [
+            1.0,
+            0.878624,
+            0.987287,
+            0.917208,
+            0.936409
+          ]
+        },
+        "evidence_image": "ambiguous_omitted_objects/02_cf_000122_radar_bounded_crops.png",
+        "evidence_sha256": "62014c2ef90cd9098e7f46a25e86d04f596ac93235a9e2570ec41f6c5fcfb853",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_crops",
+        "rank": 2,
+        "rank_key": [
+          -5,
+          -0.212379,
+          122
+        ],
+        "selection_rationale": "A YOLO-unmatched radar-bounded hypothesis persists with same-class spatial agreement across consecutive frames.",
+        "source_crop_xyxy": [
+          2652,
+          1297,
+          3252,
+          1672
+        ],
+        "source_image": "source/122_rgb.png",
+        "source_sha256": "47fd9806e2af24a1e4cf41f7881bd7e358d78807b7f947697c842160edf8cdf5"
+      }
+    ],
+    "duplicate_hypotheses": [
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2843.384827,
+              1494.097327,
+              2940.028625,
+              1534.448666
+            ],
+            "class_name": "boat",
+            "iou": 0.747022,
+            "kind": "true_positive",
+            "method": "radar_bounded_raw",
+            "rendered_bbox_xyxy": [
+              667.692872,
+              437.592872,
+              925.409667,
+              545.196443
+            ],
+            "score": 0.403285
+          },
+          {
+            "bbox_xyxy": [
+              2846.817627,
+              1506.831804,
+              2936.826294,
+              1531.322796
+            ],
+            "class_name": "boat",
+            "iou": 0.648947,
+            "kind": "duplicate_false_positive",
+            "method": "radar_bounded_raw",
+            "rendered_bbox_xyxy": [
+              676.847005,
+              471.551477,
+              916.870117,
+              536.860789
+            ],
+            "score": 0.397972
+          },
+          {
+            "bbox_xyxy": [
+              2846.288696,
+              1497.160748,
+              2936.951904,
+              1531.58511
+            ],
+            "class_name": "boat",
+            "iou": 0.895011,
+            "kind": "duplicate_false_positive",
+            "method": "radar_bounded_raw",
+            "rendered_bbox_xyxy": [
+              675.436523,
+              445.761995,
+              917.205077,
+              537.560293
+            ],
+            "score": 0.251577
+          },
+          {
+            "bbox_xyxy": [
+              2848.049866,
+              1510.036343,
+              2936.038147,
+              1530.577675
+            ],
+            "class_name": "boat",
+            "iou": 0.580978,
+            "kind": "duplicate_false_positive",
+            "method": "radar_bounded_raw",
+            "rendered_bbox_xyxy": [
+              680.132976,
+              480.096915,
+              914.768392,
+              534.8738
+            ],
+            "score": 0.234545
+          },
+          {
+            "bbox_xyxy": [
+              2837.159973,
+              1491.1697,
+              2948.564758,
+              1543.27956
+            ],
+            "class_name": "boat",
+            "iou": 0.501813,
+            "kind": "duplicate_false_positive",
+            "method": "radar_bounded_raw",
+            "rendered_bbox_xyxy": [
+              651.093261,
+              429.785867,
+              948.172688,
+              568.745493
+            ],
+            "score": 0.182034
+          }
+        ],
+        "camera_frame": 306,
+        "category": "duplicate_hypotheses",
+        "details": {
+          "ground_truth_index": 1,
+          "hypothesis_count": 5,
+          "hypothesis_ious": [
+            0.747022,
+            0.648947,
+            0.895011,
+            0.580978,
+            0.501813
+          ],
+          "track_id": "boat"
+        },
+        "evidence_image": "duplicate_hypotheses/01_cf_000306_radar_bounded_raw.png",
+        "evidence_sha256": "5c206a0866ed61b15e7fda7712f59c88122e08e58e81ce593a7c5f48d7c15239",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_raw",
+        "rank": 1,
+        "rank_key": [
+          -5,
+          -0.895011,
+          306,
+          1
+        ],
+        "selection_rationale": "Multiple pre-NMS radar-crop hypotheses class-match the same object.",
+        "source_crop_xyxy": [
+          2593,
+          1330,
+          3193,
+          1705
+        ],
+        "source_image": "source/306_rgb.png",
+        "source_sha256": "d23eafb3f707bdb449f3de0947bb44dbcfc9a8c63522b33ee4f35d8a3a19e91a"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2710.907873,
+              1611.669647,
+              2727.445839,
+              1665.239258
+            ],
+            "class_name": "buoy",
+            "iou": 0.883369,
+            "kind": "true_positive",
+            "method": "radar_bounded_raw",
+            "rendered_bbox_xyxy": [
+              778.420995,
+              428.452392,
+              822.522237,
+              571.304688
+            ],
+            "score": 0.360266
+          },
+          {
+            "bbox_xyxy": [
+              2711.319733,
+              1612.041992,
+              2726.890579,
+              1664.005676
+            ],
+            "class_name": "buoy",
+            "iou": 0.923354,
+            "kind": "duplicate_false_positive",
+            "method": "radar_bounded_raw",
+            "rendered_bbox_xyxy": [
+              779.519288,
+              429.445312,
+              821.041544,
+              568.015136
+            ],
+            "score": 0.249292
+          },
+          {
+            "bbox_xyxy": [
+              2707.641785,
+              1609.407516,
+              2731.188721,
+              1667.168152
+            ],
+            "class_name": "buoy",
+            "iou": 0.582437,
+            "kind": "duplicate_false_positive",
+            "method": "radar_bounded_raw",
+            "rendered_bbox_xyxy": [
+              769.711427,
+              422.420043,
+              832.503256,
+              576.448405
+            ],
+            "score": 0.200471
+          }
+        ],
+        "camera_frame": 401,
+        "category": "duplicate_hypotheses",
+        "details": {
+          "ground_truth_index": 0,
+          "hypothesis_count": 3,
+          "hypothesis_ious": [
+            0.883369,
+            0.923354,
+            0.582437
+          ],
+          "track_id": "b1"
+        },
+        "evidence_image": "duplicate_hypotheses/02_cf_000401_radar_bounded_raw.png",
+        "evidence_sha256": "5e19721a0a2fa4a54ad8899bbc21c618f43f8876aa46c35ced1111a3ffa74778",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_raw",
+        "rank": 2,
+        "rank_key": [
+          -3,
+          -0.923354,
+          401,
+          0
+        ],
+        "selection_rationale": "Multiple pre-NMS radar-crop hypotheses class-match the same object.",
+        "source_crop_xyxy": [
+          2419,
+          1451,
+          3019,
+          1826
+        ],
+        "source_image": "source/401_rgb.png",
+        "source_sha256": "16c497c737d9174f14bcfeb7c6109ccf17b6a516ce7e47a6ec8956323432fe5e"
+      }
+    ],
+    "localization_below_0_5": [
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2886.542297,
+              1512.813259,
+              2978.595276,
+              1530.983692
+            ],
+            "class_name": "boat",
+            "iou": 0.497971,
+            "kind": "false_positive",
+            "method": "radar_bounded_crops",
+            "rendered_bbox_xyxy": [
+              678.779459,
+              498.168691,
+              924.254069,
+              546.623179
+            ],
+            "score": 0.185616
+          },
+          {
+            "bbox_xyxy": [
+              2885.522246,
+              1496.671249,
+              2977.471612,
+              1530.198969
+            ],
+            "class_name": "boat",
+            "iou": 0.497971,
+            "kind": "false_negative",
+            "method": "radar_bounded_crops",
+            "rendered_bbox_xyxy": [
+              676.059323,
+              455.123331,
+              921.257632,
+              544.530584
+            ]
+          }
+        ],
+        "camera_frame": 378,
+        "category": "localization_below_0_5",
+        "details": {
+          "ground_truth_index": 1,
+          "subthreshold_iou": 0.497971,
+          "track_id": "boat"
+        },
+        "evidence_image": "localization_below_0_5/01_cf_000378_radar_bounded_crops.png",
+        "evidence_sha256": "1e5d450af31196a7fe77ec1fad6885c62b7bc8c2c397055d88db7edf6cf11a46",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_crops",
+        "rank": 1,
+        "rank_key": [
+          -0.497971,
+          2,
+          -0.185616,
+          378
+        ],
+        "selection_rationale": "Highest same-class overlap that remains below the 0.5 match threshold.",
+        "source_crop_xyxy": [
+          2632,
+          1326,
+          3232,
+          1701
+        ],
+        "source_image": "source/378_rgb.png",
+        "source_sha256": "f32068209d497037c609b4261db9c6811d7aa4285983d6d90c0ac4541a31ad8e"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2901.903442,
+              1511.511841,
+              2999.610962,
+              1533.388184
+            ],
+            "class_name": "boat",
+            "iou": 0.493947,
+            "kind": "false_positive",
+            "method": "radar_confidence_gated",
+            "rendered_bbox_xyxy": [
+              671.742512,
+              489.364909,
+              932.295899,
+              547.701824
+            ],
+            "score": 0.168534
+          },
+          {
+            "bbox_xyxy": [
+              2899.682743,
+              1496.900548,
+              2996.742928,
+              1530.247275
+            ],
+            "class_name": "boat",
+            "iou": 0.493947,
+            "kind": "false_negative",
+            "method": "radar_confidence_gated",
+            "rendered_bbox_xyxy": [
+              665.820648,
+              450.401461,
+              924.647808,
+              539.326067
+            ]
+          }
+        ],
+        "camera_frame": 414,
+        "category": "localization_below_0_5",
+        "details": {
+          "ground_truth_index": 1,
+          "subthreshold_iou": 0.493947,
+          "track_id": "boat"
+        },
+        "evidence_image": "localization_below_0_5/02_cf_000414_radar_confidence_gated.png",
+        "evidence_sha256": "597dc966c3a1ff05e83e8a2ee0115b90a6bd80d6e2e732fb0f5e9715271726d6",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_confidence_gated",
+        "rank": 2,
+        "rank_key": [
+          -0.493947,
+          1,
+          -0.168534,
+          414
+        ],
+        "selection_rationale": "Highest same-class overlap that remains below the 0.5 match threshold.",
+        "source_crop_xyxy": [
+          2650,
+          1328,
+          3250,
+          1703
+        ],
+        "source_image": "source/414_rgb.png",
+        "source_sha256": "e4572fe352ac843fbfe6a63b9ec356912431a2d6c6b40f94e37c1602eb47fa77"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2867.845581,
+              1511.837524,
+              2959.450806,
+              1534.622192
+            ],
+            "class_name": "boat",
+            "iou": 0.478393,
+            "kind": "false_positive",
+            "method": "vision_only_tiled",
+            "rendered_bbox_xyxy": [
+              679.588216,
+              490.233397,
+              923.868816,
+              550.992512
+            ],
+            "score": 0.230133
+          },
+          {
+            "bbox_xyxy": [
+              2867.070005,
+              1496.672147,
+              2956.563269,
+              1530.48875
+            ],
+            "class_name": "boat",
+            "iou": 0.478393,
+            "kind": "false_negative",
+            "method": "vision_only_tiled",
+            "rendered_bbox_xyxy": [
+              677.520013,
+              449.792392,
+              916.168717,
+              539.97
+            ]
+          }
+        ],
+        "camera_frame": 341,
+        "category": "localization_below_0_5",
+        "details": {
+          "ground_truth_index": 1,
+          "subthreshold_iou": 0.478393,
+          "track_id": "boat"
+        },
+        "evidence_image": "localization_below_0_5/03_cf_000341_vision_only_tiled.png",
+        "evidence_sha256": "e81b66681e28be371d52688266bc032616e4e142a9bc6334fcc60dc670ce555b",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "vision_only_tiled",
+        "rank": 3,
+        "rank_key": [
+          -0.478393,
+          0,
+          -0.230133,
+          341
+        ],
+        "selection_rationale": "Highest same-class overlap that remains below the 0.5 match threshold.",
+        "source_crop_xyxy": [
+          2613,
+          1328,
+          3213,
+          1703
+        ],
+        "source_image": "source/341_rgb.png",
+        "source_sha256": "6664063f20f81700bf5ce30a3a3208c76770108d31c9bf8e333069bb436578d5"
+      }
+    ],
+    "method_specific_recovery_disagreement": [
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2702.985596,
+              1609.404541,
+              2722.528564,
+              1657.629715
+            ],
+            "class_name": "buoy",
+            "iou": 0.632426,
+            "kind": "true_positive",
+            "method": "radar_confidence_gated",
+            "rendered_bbox_xyxy": [
+              773.294923,
+              427.745443,
+              825.409504,
+              556.345907
+            ],
+            "score": 0.169455
+          }
+        ],
+        "camera_frame": 194,
+        "category": "method_specific_recovery_disagreement",
+        "details": {
+          "ground_truth_index": 0,
+          "matched_iou": 0.632426,
+          "missed_by": [
+            "vision_only_tiled"
+          ],
+          "recovered_by": [
+            "radar_confidence_gated",
+            "radar_bounded_crops"
+          ],
+          "track_id": "b1"
+        },
+        "evidence_image": "method_specific_recovery_disagreement/01_cf_000194_radar_confidence_gated.png",
+        "evidence_sha256": "789941128a0252108ba4a7b15a3789a55c8a2f6b9701897bea66f9791246def9",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_confidence_gated",
+        "rank": 1,
+        "rank_key": [
+          -2,
+          1,
+          746.591468,
+          194,
+          0
+        ],
+        "selection_rationale": "One final method class-matches this object while another misses it.",
+        "source_crop_xyxy": [
+          2413,
+          1449,
+          3013,
+          1824
+        ],
+        "source_image": "source/194_rgb.png",
+        "source_sha256": "270535c659508ba69e48f97026211d0115685627a3d1eb606548bbfc04dabae5"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2887.954071,
+              1512.274307,
+              2894.742157,
+              1527.344788
+            ],
+            "class_name": "buoy",
+            "iou": 0.694235,
+            "kind": "true_positive",
+            "method": "radar_bounded_crops",
+            "rendered_bbox_xyxy": [
+              791.877523,
+              480.731485,
+              809.979085,
+              520.919435
+            ],
+            "score": 0.194293
+          }
+        ],
+        "camera_frame": 205,
+        "category": "method_specific_recovery_disagreement",
+        "details": {
+          "ground_truth_index": 1,
+          "matched_iou": 0.694235,
+          "missed_by": [
+            "vision_only_tiled",
+            "radar_confidence_gated"
+          ],
+          "recovered_by": [
+            "radar_bounded_crops"
+          ],
+          "track_id": "b2"
+        },
+        "evidence_image": "method_specific_recovery_disagreement/02_cf_000205_radar_bounded_crops.png",
+        "evidence_sha256": "2ac49d1d40865abad0eafb1b190a095506242620d0d4bea1769ba5b105907b4d",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_crops",
+        "rank": 2,
+        "rank_key": [
+          -1,
+          2,
+          71.019996,
+          205,
+          1
+        ],
+        "selection_rationale": "One final method class-matches this object while another misses it.",
+        "source_crop_xyxy": [
+          2591,
+          1332,
+          3191,
+          1707
+        ],
+        "source_image": "source/205_rgb.png",
+        "source_sha256": "5e41c2b993f3c6f2aa6206c0c36f6167a9a5954e6f8d2b8346e6ae834b0a5f9f"
+      }
+    ],
+    "radar_supported_clutter_shoreline": [
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2650.597656,
+              1471.955917,
+              2677.71521,
+              1490.85614
+            ],
+            "class_name": "boat",
+            "iou": 0.0,
+            "kind": "false_positive",
+            "method": "radar_bounded_crops",
+            "rendered_bbox_xyxy": [
+              556.395137,
+              185.943993,
+              619.367687,
+              229.898
+            ],
+            "score": 0.412771
+          }
+        ],
+        "camera_frame": 132,
+        "category": "radar_supported_clutter_shoreline",
+        "details": {
+          "nearest_same_class_iou": 0.0,
+          "radar_support_aspect_ratios": [
+            3.688309,
+            16.270268
+          ],
+          "radar_support_bboxes_xyxy": [
+            [
+              2539.963488,
+              1639.996381,
+              2917.379842,
+              1742.324131
+            ],
+            [
+              2608.463859,
+              1522.200506,
+              2971.584279,
+              1544.518542
+            ]
+          ],
+          "source_tracks": [
+            2,
+            3
+          ]
+        },
+        "evidence_image": "radar_supported_clutter_shoreline/01_cf_000132_radar_bounded_crops.png",
+        "evidence_sha256": "726a33f3510fc7abcca562d4239f8ba9d8c873491107ae3ebd994d741272deed",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_crops",
+        "rank": 1,
+        "rank_key": [
+          -16.270268,
+          -0.412771,
+          0.0,
+          132
+        ],
+        "selection_rationale": "Radar-track-supported detection has no class match and is ranked by support-region elongation.",
+        "source_crop_xyxy": [
+          2411,
+          1392,
+          3100,
+          1822
+        ],
+        "source_image": "source/132_rgb.png",
+        "source_sha256": "29b648d71ee6c98d9290dc15af846fc9d09d5ae2b35a2f7545c26077352d11ec"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2648.550293,
+              1473.181038,
+              2676.926971,
+              1491.358971
+            ],
+            "class_name": "boat",
+            "iou": 0.0,
+            "kind": "false_positive",
+            "method": "radar_bounded_crops",
+            "rendered_bbox_xyxy": [
+              484.082316,
+              186.902186,
+              550.266988,
+              229.274991
+            ],
+            "score": 0.209386
+          }
+        ],
+        "camera_frame": 171,
+        "category": "radar_supported_clutter_shoreline",
+        "details": {
+          "nearest_same_class_iou": 0.0,
+          "radar_support_aspect_ratios": [
+            3.041875,
+            15.977206
+          ],
+          "radar_support_bboxes_xyxy": [
+            [
+              2553.793069,
+              1640.629143,
+              2861.805655,
+              1741.886604
+            ],
+            [
+              2636.158435,
+              1521.820783,
+              3013.367154,
+              1545.429962
+            ]
+          ],
+          "source_tracks": [
+            2,
+            7
+          ]
+        },
+        "evidence_image": "radar_supported_clutter_shoreline/02_cf_000171_radar_bounded_crops.png",
+        "evidence_sha256": "d4f8ad951e9241f2bd0f2c7d30ea56cf5c369a0c0c3ddd836622a1e645cf07c1",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_crops",
+        "rank": 2,
+        "rank_key": [
+          -15.977206,
+          -0.209386,
+          0.0,
+          171
+        ],
+        "selection_rationale": "Radar-track-supported detection has no class match and is ranked by support-region elongation.",
+        "source_crop_xyxy": [
+          2441,
+          1393,
+          3127,
+          1822
+        ],
+        "source_image": "source/171_rgb.png",
+        "source_sha256": "74a5fc2f17470fe5a3804e5ce84c4ce644be16553014f0466406f5fc48e63119"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              2650.926224,
+              1472.690292,
+              2676.210968,
+              1490.501213
+            ],
+            "class_name": "boat",
+            "iou": 0.0,
+            "kind": "false_positive",
+            "method": "radar_bounded_crops",
+            "rendered_bbox_xyxy": [
+              298.469931,
+              401.840779,
+              365.895915,
+              449.336568
+            ],
+            "score": 0.230139
+          }
+        ],
+        "camera_frame": 201,
+        "category": "radar_supported_clutter_shoreline",
+        "details": {
+          "nearest_same_class_iou": 0.0,
+          "radar_support_aspect_ratios": [
+            15.368316
+          ],
+          "radar_support_bboxes_xyxy": [
+            [
+              2663.937,
+              1522.168584,
+              3027.340173,
+              1545.814842
+            ]
+          ],
+          "source_tracks": [
+            7
+          ]
+        },
+        "evidence_image": "radar_supported_clutter_shoreline/03_cf_000201_radar_bounded_crops.png",
+        "evidence_sha256": "80ca636f0bdab79e1a3ecfa3486d95a05cc2b8d842db0abcacb4e2ed0a8f6540",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "radar_bounded_crops",
+        "rank": 3,
+        "rank_key": [
+          -15.368316,
+          -0.230139,
+          0.0,
+          201
+        ],
+        "selection_rationale": "Radar-track-supported detection has no class match and is ranked by support-region elongation.",
+        "source_crop_xyxy": [
+          2539,
+          1322,
+          3139,
+          1697
+        ],
+        "source_image": "source/201_rgb.png",
+        "source_sha256": "c2009a251d21b0a826e966d1a0ca46f3c1905652e60b58440fe4d0d7c44806e5"
+      }
+    ],
+    "tiny_misses": [
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              4767.927166,
+              1492.313123,
+              4771.939854,
+              1499.335326
+            ],
+            "class_name": "buoy",
+            "kind": "false_negative",
+            "method": "all_final_methods",
+            "rendered_bbox_xyxy": [
+              794.472443,
+              491.501661,
+              805.172944,
+              510.227536
+            ]
+          }
+        ],
+        "camera_frame": 119,
+        "category": "tiny_misses",
+        "details": {
+          "area_px2": 28.177908,
+          "ground_truth_index": 4,
+          "missed_by": [
+            "vision_only_tiled",
+            "radar_confidence_gated",
+            "radar_bounded_crops"
+          ],
+          "track_id": "b4"
+        },
+        "evidence_image": "tiny_misses/01_cf_000119_all_final_methods.png",
+        "evidence_sha256": "a72c844d28e776d18b72cec74f8673519540b5779f96e08413127d010fcc6dc8",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "all_final_methods",
+        "rank": 1,
+        "rank_key": [
+          28.177908,
+          119,
+          4
+        ],
+        "selection_rationale": "Smallest ground-truth instance missed by every final method.",
+        "source_crop_xyxy": [
+          4470,
+          1308,
+          5070,
+          1683
+        ],
+        "source_image": "source/119_rgb.png",
+        "source_sha256": "dff25d28fea82b4da3264f33b910f35dccb3a4ecf68eb86bdfb780df3e569dda"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              5305.095287,
+              1487.997801,
+              5310.119646,
+              1496.243418
+            ],
+            "class_name": "buoy",
+            "kind": "false_negative",
+            "method": "all_final_methods",
+            "rendered_bbox_xyxy": [
+              1560.254099,
+              487.994136,
+              1573.652389,
+              509.982448
+            ]
+          }
+        ],
+        "camera_frame": 126,
+        "category": "tiny_misses",
+        "details": {
+          "area_px2": 41.428947,
+          "ground_truth_index": 8,
+          "missed_by": [
+            "vision_only_tiled",
+            "radar_confidence_gated",
+            "radar_bounded_crops"
+          ],
+          "track_id": "b8"
+        },
+        "evidence_image": "tiny_misses/02_cf_000126_all_final_methods.png",
+        "evidence_sha256": "30b450dacf05218871103a6acf59314a9ef9ae7dc58fcf69b419d930cdaa1de7",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "all_final_methods",
+        "rank": 2,
+        "rank_key": [
+          41.428947,
+          126,
+          8
+        ],
+        "selection_rationale": "Smallest ground-truth instance missed by every final method.",
+        "source_crop_xyxy": [
+          4720,
+          1305,
+          5320,
+          1680
+        ],
+        "source_image": "source/126_rgb.png",
+        "source_sha256": "d044ef1eedf8f8048521abd584d3a19b6c21a4f034e80e7f142bcacfd3c1f07e"
+      },
+      {
+        "annotations": [
+          {
+            "bbox_xyxy": [
+              4766.633763,
+              1501.02857,
+              4771.846576,
+              1511.79266
+            ],
+            "class_name": "buoy",
+            "kind": "false_negative",
+            "method": "all_final_methods",
+            "rendered_bbox_xyxy": [
+              793.690035,
+              485.40952,
+              807.590869,
+              514.11376
+            ]
+          }
+        ],
+        "camera_frame": 162,
+        "category": "tiny_misses",
+        "details": {
+          "area_px2": 56.111195,
+          "ground_truth_index": 5,
+          "missed_by": [
+            "vision_only_tiled",
+            "radar_confidence_gated",
+            "radar_bounded_crops"
+          ],
+          "track_id": "b5"
+        },
+        "evidence_image": "tiny_misses/03_cf_000162_all_final_methods.png",
+        "evidence_sha256": "b6e922609f70d8644cbf8b9fd39e36fd11bd8f832216981822cf7ad3511645c7",
+        "output_size": [
+          1600,
+          1000
+        ],
+        "primary_method": "all_final_methods",
+        "rank": 3,
+        "rank_key": [
+          56.111195,
+          162,
+          5
+        ],
+        "selection_rationale": "Smallest ground-truth instance missed by every final method.",
+        "source_crop_xyxy": [
+          4469,
+          1319,
+          5069,
+          1694
+        ],
+        "source_image": "source/162_rgb.png",
+        "source_sha256": "afa498215a93cd81f7c93e4c6d20be0a9ba74a1d3650c6edde0ac5e98c84547b"
+      }
+    ]
+  },
+  "inputs": {
+    "ground_truth": {
+      "content_sha256": "25db67bd75897b32ec085152bf0176169a544432c8ffc63c6ddc6de782077456",
+      "path": "dream_fusion_yolo_labels_and_manifest.tar.gz"
+    },
+    "radar_bounded": {
+      "path": "experiments/detection_comparison/radar_bounded_full.jsonl",
+      "sha256": "1fbb6ed52d094f158b8f8ee34cb7985bf9d56144bb6bf8f24c2e378498b6f67f"
+    },
+    "radar_confidence_gated": {
+      "path": "experiments/detection_comparison/radar_confidence_gated.jsonl",
+      "sha256": "1018c8cb468d1f3fb77b3cc045aeb7397786b87056ef8f6a4233f2dd6e5aa978"
+    },
+    "vision_only": {
+      "path": "experiments/detection_comparison/vision_only_tiled.jsonl",
+      "sha256": "9a145b4490e688b7092e65133e2016c564e33a371062bae9ea72bd2d63e89064"
+    }
+  },
+  "matching": {
+    "class_aware": true,
+    "ground_truth_assignment": "greedy_one_to_one",
+    "iou_threshold": 0.5,
+    "prediction_order": "score_desc_then_class_box_and_input_index"
+  },
+  "rendering": {
+    "colors": {
+      "correct_by_class": {
+        "boat": "#FF00FF",
+        "buoy": "#FFFF00"
+      },
+      "false_negative": "#FF00FF",
+      "false_positive": "#FF0000"
+    },
+    "false_negative_line_style": "dashed",
+    "max_per_category": 3,
+    "no_text_overlays": true,
+    "output_size": [
+      1600,
+      1000
+    ]
+  },
+  "schema_version": 1,
+  "selected_source_frames": [
+    119,
+    122,
+    126,
+    132,
+    162,
+    171,
+    194,
+    201,
+    205,
+    306,
+    341,
+    378,
+    401,
+    414
+  ]
+}
