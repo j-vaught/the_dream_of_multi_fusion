@@ -1,0 +1,294 @@
+{
+  "assets": [
+    {
+      "burned_in_text": false,
+      "camera_frames": [
+        203
+      ],
+      "height": 1080,
+      "media_type": "image/png",
+      "path": "support_map_poster.png",
+      "sha256": "26359d19d51d9fce0c229bc13461043ea97f8f5de1e13816d12c1e68c4a142db",
+      "width": 1920
+    },
+    {
+      "burned_in_text": false,
+      "camera_frames": [
+        138
+      ],
+      "height": 1080,
+      "media_type": "image/png",
+      "path": "center_inside_example.png",
+      "sha256": "a910f1bf5c113e66cc7f5058d38a6db76a053db65e2a5fb24e57f4c930e11e46",
+      "width": 1920
+    },
+    {
+      "burned_in_text": false,
+      "camera_frames": [],
+      "height": 1080,
+      "media_type": "image/png",
+      "path": "ioa_25_and_touching_rejection.png",
+      "sha256": "db2d11401639d6eceb7191e753391bc254cbc0973c18e19f4041bc4ec4b353aa",
+      "width": 1920
+    },
+    {
+      "avg_frame_rate": "60/1",
+      "burned_in_text": false,
+      "camera_frames": [
+        119,
+        138,
+        119
+      ],
+      "codec": "h264",
+      "duration_seconds": 3.0,
+      "frame_count": 180,
+      "height": 1080,
+      "media_type": "video/mp4",
+      "path": "gate_acceptance_animation.mp4",
+      "pixel_format": "yuv420p",
+      "r_frame_rate": "60/1",
+      "sha256": "a503b7cf200a61bcbcf4f4141c19de50ecd2dc572f8ccb9554415c5f7455d202",
+      "width": 1920
+    },
+    {
+      "burned_in_text": false,
+      "camera_frames": [
+        393,
+        394,
+        395,
+        396
+      ],
+      "height": 1080,
+      "media_type": "image/png",
+      "path": "false_positive_episode_montage.png",
+      "sha256": "50df36e28be5fc35ecb949666500e750b9d55f26a5258876189c8377e6dee57a",
+      "width": 1920
+    },
+    {
+      "avg_frame_rate": "60/1",
+      "burned_in_text": false,
+      "camera_frames": [
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178
+      ],
+      "codec": "h264",
+      "duration_seconds": 3.0,
+      "frame_count": 180,
+      "height": 1080,
+      "media_type": "video/mp4",
+      "path": "correct_predictions_over_dashed_ground_truth.mp4",
+      "pixel_format": "yuv420p",
+      "r_frame_rate": "60/1",
+      "sha256": "975e9cfadce78407a29e4512f2b7e6fc912f44ade99cebff82f2339214f62aae",
+      "width": 1920
+    }
+  ],
+  "deterministic": true,
+  "existing_prediction_only_base_video": {
+    "generated_or_duplicated": false,
+    "path": "08_exp1_vision_only_detections.mp4",
+    "sha256": "6a74f223caf5ea59daf1ec22a9f75bde94fa0eddedff56cccd08bd4ae85f12e7"
+  },
+  "generator": "generate_gate_media.py",
+  "schema_version": 1,
+  "selections": {
+    "acceptance_animation": {
+      "center": {
+        "camera_frame": 138,
+        "decision": "accepted_radar",
+        "score": 0.16822732985019684,
+        "support_reason": "center_inside"
+      },
+      "high": {
+        "camera_frame": 119,
+        "decision": "accepted_global",
+        "score": 0.6370086073875427,
+        "support_reason": "center_inside"
+      },
+      "low": {
+        "camera_frame": 119,
+        "decision": "rejected",
+        "score": 0.12616688013076782,
+        "support_reason": "center_inside"
+      }
+    },
+    "center_inside": {
+      "bbox_xyxy": [
+        2705.6668701171875,
+        1608.0108337402344,
+        2725.6571044921875,
+        1657.4284210205078
+      ],
+      "camera_frame": 138,
+      "label": "buoy",
+      "radar_region_index": 0,
+      "score": 0.16822732985019684,
+      "support_reason": "center_inside"
+    },
+    "correct_prediction_sequence": [
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      178
+    ],
+    "false_positive_episode": [
+      393,
+      394,
+      395,
+      396
+    ],
+    "ioa_geometry": {
+      "accepted_candidate_area_fraction": 0.25,
+      "accepted_center_inside": false,
+      "provenance": "geometry_only",
+      "touching_candidate_area_fraction": 0.0,
+      "touching_center_inside": false
+    }
+  },
+  "source_coordinate_system": [
+    5320,
+    3032
+  ],
+  "sources": [
+    {
+      "path": "01_input_raw.mp4",
+      "sha256": "ddbe53f2474e0ede9d81b74474473a4292c2c6e14897eda1f13906a5884d4e83"
+    },
+    {
+      "path": "experiments/detection_comparison/shard_000_149.jsonl",
+      "sha256": "ec418cf8be94f16da5a0a6dd02d787ee1cf4afedbf0f09c842783b91b9ade51f"
+    },
+    {
+      "path": "experiments/detection_comparison/shard_150_299.jsonl",
+      "sha256": "05dbac0a42a8c656702599f3820518c24564dbc908807b9f03f09b4092396c65"
+    },
+    {
+      "path": "experiments/detection_comparison/radar_confidence_gated.jsonl",
+      "sha256": "1018c8cb468d1f3fb77b3cc045aeb7397786b87056ef8f6a4233f2dd6e5aa978"
+    },
+    {
+      "path": "datasets/dream_fusion_yolo/manifest.jsonl",
+      "sha256": "25db67bd75897b32ec085152bf0176169a544432c8ffc63c6ddc6de782077456"
+    }
+  ],
+  "thresholds": {
+    "evaluation_iou": 0.5,
+    "global_acceptance_score": 0.18,
+    "radar_acceptance_score": 0.16,
+    "radar_minimum_ioa": 0.25
+  }
+}
