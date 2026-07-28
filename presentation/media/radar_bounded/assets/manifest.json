@@ -1,0 +1,47 @@
+{
+  "assets": {
+    "correct_prediction": {
+      "file": "04_radar_bounded_correct_predictions_over_ground_truth.mp4",
+      "manifest": "04_radar_bounded_correct_predictions_over_ground_truth.manifest.json",
+      "manifest_sha256": "6b02b7eb94345cf20a8b969fce6f7411fd5e41310322f01b338460b22ea04130",
+      "sha256": "923a4bf8188d3a9f777356f26b56563fd140fb567d9bf73521740868297e36db"
+    },
+    "disagreement": {
+      "file": "07_method_disagreement_montage.mp4",
+      "manifest": "07_method_disagreement_montage.manifest.json",
+      "manifest_sha256": "79bf1254a9b5d6e0b803cc1441a7aa696050e60b7cfa5d98ab2832237fec5982",
+      "sha256": "21864381431e18d41974185572c9d5576188a106ac71d5b3a4a5ee0b5d862684"
+    },
+    "false_positive": {
+      "file": "03_radar_bounded_false_positive_episodes.mp4",
+      "manifest": "03_radar_bounded_false_positive_episodes.manifest.json",
+      "manifest_sha256": "468ccc66fb2fe8047db274ce794ef3407fed1167dac8355f646c17acad0210c7",
+      "sha256": "062a3a383729242bee0e928a286d85d96e412a9b97dbb23c54035c0acc65f811"
+    },
+    "full_crop": {
+      "file": "02_full_frame_extracted_crop_composite.mp4",
+      "manifest": "02_full_frame_extracted_crop_composite.manifest.json",
+      "manifest_sha256": "1948c2a37cc88100f0217f09bee16295df68c3006ac080c60be4c0c036bfb244",
+      "sha256": "095975e50ff674fee6e3bd7454eff70cba605b16dc0c73042b1b1becb55fa94d"
+    },
+    "full_methods": {
+      "file": "05_three_method_full_frame_composite.mp4",
+      "manifest": "05_three_method_full_frame_composite.manifest.json",
+      "manifest_sha256": "e8b8519c5ffcc62bbbd061cd664807bc1e4e6b7263e0320fc42ebd307f950a55",
+      "sha256": "19e19bc6c23d57b4482ad553eb861e8ab0ec73e0a890b69ebbfd2588916d7087"
+    },
+    "radar_inspection": {
+      "file": "01_radar_inspection_zones.mp4",
+      "manifest": "01_radar_inspection_zones.manifest.json",
+      "manifest_sha256": "9ba66714abf25defd36543dcbaf8c4bcc94a27fafad35836dc9fcb29e2ac311e",
+      "sha256": "f550c6661777219863ed565aa6c55fe53544c1485e6c40e01ef00c9a52f2a190"
+    },
+    "zoom_methods": {
+      "file": "06_three_method_zoom_composite.mp4",
+      "manifest": "06_three_method_zoom_composite.manifest.json",
+      "manifest_sha256": "e3f07f1e8155c2a4ca5965fad1fd7f75e667a748c68a30414bf5a64eaea3c8a7",
+      "sha256": "988451a184a4214b728393634ebc99fef70af8fe05fb08401adbd608eec11d87"
+    }
+  },
+  "schema_version": 1
+}
