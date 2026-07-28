@@ -26,6 +26,21 @@ The radar-bounded method runs the detector only on padded radar-return crops.
 This magnifies tiny objects but can also magnify clutter and create additional
 false positives.
 
+## Recovered radar-bounded artifact
+
+The full 300-frame radar-bounded output is preserved as
+`radar_bounded_full.jsonl`. It was recovered byte-for-byte from
+`comech-2422:/home/j-vaught/dream_fusion/out/detections.jsonl` together with
+the pipeline implementation and its SegFormer water-mask module. The recovered
+output has SHA-256
+`1fbb6ed52d094f158b8f8ee34cb7985bf9d56144bb6bf8f24c2e378498b6f67f`.
+
+`experiment_manifest.json` records the exact source commits, artifact hashes,
+model identifiers, detector prompt and thresholds, resize bounds, radar
+padding, water filtering, crop merging, and class-aware non-maximum
+suppression parameters. The implementation that preceded this recovery remains
+available in Git commit `6b73cc1fae7439bd8fc38c0d01ab8ce267fe7150`.
+
 ## Test results
 
 | Method | TP | FP | FN | Precision | Recall | F1 |

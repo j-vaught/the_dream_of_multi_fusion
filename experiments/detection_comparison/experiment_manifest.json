@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "experiment_id": "radar_bounded_full",
+  "method": "radar-bounded Grounding DINO detection",
+  "frame_range": {
+    "frame_idx_start": 0,
+    "frame_idx_end": 299,
+    "row_count": 300
+  },
+  "provenance": {
+    "ssh_alias": "comech-2422",
+    "remote_repository": "/home/j-vaught/dream_fusion",
+    "remote_git_commit": "c67e9c5742a24df138869be0182e15b7904cca90",
+    "implementation_commit": "32e2e02f4949cc0f43c4bda1ac9a744a7d942da9",
+    "land_segmentation_commit": "c5a4ba34117b625df432402cecb23b0ec2bc743d",
+    "detection_source": "out/detections.jsonl"
+  },
+  "parameters": {
+    "detector": {
+      "model_id": "IDEA-Research/grounding-dino-base",
+      "prompt": "boat . vessel . ship . buoy . navigation buoy . channel marker . red buoy . green buoy .",
+      "box_threshold": 0.18,
+      "text_threshold": 0.18,
+      "resize": {
+        "shortest_edge": 1024,
+        "longest_edge": 1600
+      }
+    },
+    "radar_crop": {
+      "padding_pixels_per_side": 150,
+      "clip_to_image_bounds": true,
+      "max_padded_width_to_height_ratio": 2.1
+    },
+    "water_filter": {
+      "model_id": "nvidia/segformer-b2-finetuned-ade-512-512",
+      "water_keywords": [
+        "water",
+        "sea",
+        "river",
+        "lake",
+        "pool",
+        "swimming pool",
+        "waterfall",
+        "falls"
+      ],
+      "class_selection": "exact match against each lowercase comma-separated label synonym",
+      "mask_classification": "argmax at native SegFormer logit resolution",
+      "upsampling": "bilinear to original image size",
+      "boolean_threshold": 127,
+      "boolean_comparison": "greater_than",
+      "fraction_region": "clamped unpadded radar bounding box",
+      "minimum_water_fraction": 0.9,
+      "keep_comparison": "greater_than_or_equal"
+    },
+    "crop_merge": {
+      "stage": "before detector inference",
+      "metric": "intersection area divided by smaller padded-crop area",
+      "threshold": 0.3,
+      "comparison": "strictly_greater_than",
+      "grouping": "transitive union-find",
+      "merged_crop": "integer-coordinate union bounding box"
+    },
+    "nms": {
+      "stage": "after remapping crop detections to full-frame coordinates",
+      "implementation": "torchvision.ops.nms",
+      "class_aware": true,
+      "class_key": "normalized label",
+      "iou_threshold": 0.5,
+      "output_order": "descending score"
+    }
+  },
+  "artifacts": {
+    "dream_multi_fusion.py": {
+      "remote_path": "dream_multi_fusion.py",
+      "sha256": "f2253d256bc2bd47697b22c5c16f7fb4555b1449cad8523bc41903fca1ba36fd",
+      "bytes": 30746
+    },
+    "land_segmentation.py": {
+      "remote_path": "land_segmentation.py",
+      "sha256": "b5a305c94dd3705b84e96215a5e6be9a0a2262a23d0978e816970cca31e36587",
+      "bytes": 3445
+    },
+    "radar_bounded_full.jsonl": {
+      "remote_path": "out/detections.jsonl",
+      "sha256": "1fbb6ed52d094f158b8f8ee34cb7985bf9d56144bb6bf8f24c2e378498b6f67f",
+      "bytes": 1208850,
+      "rows": 300
+    }
+  },
+  "replaced_local_implementation": {
+    "git_commit": "6b73cc1fae7439bd8fc38c0d01ab8ce267fe7150",
+    "git_blob": "39bed32450d1288d9212368c7636434c8925516a",
+    "sha256": "6b07f3036a9b8b5d5ea7b61edc3a869ad2ef349a5466f7f61c17e063e96d8fee"
+  }
+}
