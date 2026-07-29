@@ -395,42 +395,6 @@ def empty_figure(background: str = COLORS["black"]) -> dict[str, Any]:
     }
 
 
-def add_x(
-    figure: dict[str, Any],
-    box: Sequence[float],
-    color: str = COLORS["rose"],
-    width: float = 5.0,
-) -> None:
-    figure["lines"].extend(
-        [
-            line(box[0], box[1], box[2], box[3], color, width),
-            line(box[0], box[3], box[2], box[1], color, width),
-        ]
-    )
-
-
-def add_check(
-    figure: dict[str, Any],
-    x: float,
-    y: float,
-    scale: float,
-    color: str,
-) -> None:
-    figure["lines"].extend(
-        [
-            line(x, y, x + 0.34 * scale, y + 0.34 * scale, color, 6.0),
-            line(
-                x + 0.34 * scale,
-                y + 0.34 * scale,
-                x + scale,
-                y - 0.42 * scale,
-                color,
-                6.0,
-            ),
-        ]
-    )
-
-
 def write_figure_data(path: Path, figure: dict[str, Any]) -> None:
     path.write_text(
         json.dumps(figure, sort_keys=True, separators=(",", ":")),
@@ -545,8 +509,6 @@ def support_map_figure(
                 fill=color,
             )
         )
-        if decision == "rejected":
-            add_x(figure, box, width=2.5)
     return figure
 
 
@@ -606,13 +568,6 @@ def center_inside_figure(
             ),
         ]
     )
-    add_check(
-        figure,
-        min(LAYOUT_WIDTH - 90, projected[2] + 24),
-        max(50, projected[1] - 28),
-        44,
-        COLORS["grass"],
-    )
     return figure
 
 
@@ -644,7 +599,7 @@ def ioa_touching_figure() -> dict[str, Any]:
                 fill=COLORS["grass"],
                 alpha=0.18,
             ),
-            rectangle(left_candidate, COLORS["white"], 5.0),
+            rectangle(left_candidate, COLORS["honeycomb"], 7.0),
         ]
     )
     figure["circles"].append(
@@ -657,8 +612,6 @@ def ioa_touching_figure() -> dict[str, Any]:
             fill=COLORS["honeycomb"],
         )
     )
-    add_check(figure, 375.0, 98.0, 48.0, COLORS["grass"])
-
     right_region = [555.0, 150.0, 790.0, 390.0]
     right_candidate = [790.0, 150.0, 925.0, 390.0]
     figure["rectangles"].extend(
@@ -670,7 +623,7 @@ def ioa_touching_figure() -> dict[str, Any]:
                 fill=COLORS["atlantic"],
                 alpha=0.70,
             ),
-            rectangle(right_candidate, COLORS["white"], 5.0),
+            rectangle(right_candidate, COLORS["rose"], 7.0),
         ]
     )
     figure["circles"].append(
@@ -683,7 +636,6 @@ def ioa_touching_figure() -> dict[str, Any]:
             fill=COLORS["rose"],
         )
     )
-    add_x(figure, [810.0, 72.0, 890.0, 132.0], width=8.0)
     return figure
 
 
@@ -763,7 +715,11 @@ def acceptance_state_figure(
             example["support_reason"] is not None,
         )
         color = (
-            COLORS["grass"] if decision in {"accepted_global", "accepted_radar"} else COLORS["rose"]
+            COLORS["grass"]
+            if decision == "accepted_global"
+            else COLORS["honeycomb"]
+            if decision == "accepted_radar"
+            else COLORS["rose"]
         )
         stroke = color if active else COLORS["white"]
         figure["rectangles"].append(rectangle(projected, stroke, 4.0))
@@ -778,22 +734,6 @@ def acceptance_state_figure(
                 fill=stroke,
             )
         )
-        if active:
-            if decision == "rejected":
-                add_x(
-                    figure,
-                    [panel[0] + 104, 14, panel[0] + 186, 82],
-                    color,
-                    7.0,
-                )
-            else:
-                add_check(
-                    figure,
-                    panel[0] + 112,
-                    50,
-                    54,
-                    color,
-                )
     return figure
 
 
@@ -1082,6 +1022,13 @@ def build_manifest(
             "radar_acceptance_score": RADAR_THRESHOLD,
             "radar_minimum_ioa": MINIMUM_IOA,
             "evaluation_iou": IOU_THRESHOLD,
+        },
+        "visual_encoding": {
+            "accepted_global": COLORS["grass"],
+            "accepted_radar": COLORS["honeycomb"],
+            "rejected": COLORS["rose"],
+            "radar_support": COLORS["atlantic"],
+            "status_symbols": False,
         },
         "sources": sources,
         "existing_prediction_only_base_video": {

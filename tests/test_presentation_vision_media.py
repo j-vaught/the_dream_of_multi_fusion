@@ -70,6 +70,8 @@ class VisionMediaArtifactTests(unittest.TestCase):
         self.assertEqual(style["predictions"]["buoy"]["line_style"], "solid")
         self.assertEqual(style["ground_truth"]["boat"]["line_style"], "dashed")
         self.assertEqual(style["ground_truth"]["buoy"]["line_style"], "dashed")
+        self.assertEqual(style["ground_truth"]["boat"]["color"], "#FFFFFF")
+        self.assertEqual(style["ground_truth"]["buoy"]["color"], "#FFFFFF")
 
     def test_assets_match_manifest_hashes_and_timing(self) -> None:
         vision_media.verify_manifest()

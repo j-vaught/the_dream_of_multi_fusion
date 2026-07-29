@@ -12,6 +12,7 @@ dist/
 build/
 .simple_deck_build.*/
 .slide_build.*/
+.legend_revision_build.*/
 
 # IDE
 .vscode/

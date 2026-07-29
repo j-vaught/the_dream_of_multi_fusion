@@ -19,7 +19,7 @@
       "height": 1080,
       "media_type": "image/png",
       "path": "center_inside_example.png",
-      "sha256": "a910f1bf5c113e66cc7f5058d38a6db76a053db65e2a5fb24e57f4c930e11e46",
+      "sha256": "e8dfd86a34e4eb98009f26e3b42029ba6028c21e5cdc1580f23fcef4a2a6b552",
       "width": 1920
     },
     {
@@ -28,7 +28,7 @@
       "height": 1080,
       "media_type": "image/png",
       "path": "ioa_25_and_touching_rejection.png",
-      "sha256": "db2d11401639d6eceb7191e753391bc254cbc0973c18e19f4041bc4ec4b353aa",
+      "sha256": "124d51481cd67035c589bbdc971c6c9d89a5a8ec1fb7bb385bf345ceede07053",
       "width": 1920
     },
     {
@@ -49,7 +49,7 @@
       "path": "gate_acceptance_animation.mp4",
       "pixel_format": "yuv420p",
       "r_frame_rate": "60/1",
-      "sha256": "a503b7cf200a61bcbcf4f4141c19de50ecd2dc572f8ccb9554415c5f7455d202",
+      "sha256": "4be6381c6af4f07e92c84ad1012563858c4ca63a3d0d35df0b611db43b660cf2",
       "width": 1920
     },
     {
@@ -336,5 +336,12 @@
     "global_acceptance_score": 0.18,
     "radar_acceptance_score": 0.16,
     "radar_minimum_ioa": 0.25
+  },
+  "visual_encoding": {
+    "accepted_global": "#CED318",
+    "accepted_radar": "#A49137",
+    "radar_support": "#466A9F",
+    "rejected": "#CC2E40",
+    "status_symbols": false
   }
 }

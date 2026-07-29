@@ -147,6 +147,16 @@ class GateAssetTests(unittest.TestCase):
             self.assertEqual(record["loop_metadata"], [])
 
     def test_manifest_records_geometry_and_frame_provenance(self) -> None:
+        self.assertEqual(
+            self.manifest["visual_encoding"],
+            {
+                "accepted_global": "#CED318",
+                "accepted_radar": "#A49137",
+                "rejected": "#CC2E40",
+                "radar_support": "#466A9F",
+                "status_symbols": False,
+            },
+        )
         selections = self.manifest["selections"]
         self.assertEqual(
             selections["center_inside"]["camera_frame"],

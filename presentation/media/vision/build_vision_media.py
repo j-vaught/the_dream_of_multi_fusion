@@ -37,6 +37,7 @@ IOU_THRESHOLD = 0.5
 BOAT_COLOR = "#FF00FF"
 BUOY_COLOR = "#FFFF00"
 FALSE_POSITIVE_COLOR = "#FF0000"
+GROUND_TRUTH_COLOR = "#FFFFFF"
 CLASS_COLORS = {"boat": BOAT_COLOR, "buoy": BUOY_COLOR}
 
 CORRECT_CAMERA_FRAME = 119
@@ -324,11 +325,10 @@ def build_correct_poster(
     image = image.resize(ZOOM_DIMENSIONS, Image.Resampling.LANCZOS)
     drawing = ImageDraw.Draw(image)
     for match in matches:
-        color = CLASS_COLORS[match.prediction["label"]]
         draw_dashed_rectangle(
             drawing,
             full_box_to_zoom(match.ground_truth["bbox_xyxy"]),
-            color,
+            GROUND_TRUTH_COLOR,
         )
     for match in matches:
         color = CLASS_COLORS[match.prediction["label"]]
@@ -597,8 +597,8 @@ def write_manifest(
                 "buoy": {"color": BUOY_COLOR, "line_style": "solid"},
             },
             "ground_truth": {
-                "boat": {"color": BOAT_COLOR, "line_style": "dashed"},
-                "buoy": {"color": BUOY_COLOR, "line_style": "dashed"},
+                "boat": {"color": GROUND_TRUTH_COLOR, "line_style": "dashed"},
+                "buoy": {"color": GROUND_TRUTH_COLOR, "line_style": "dashed"},
             },
         },
         "selection": {

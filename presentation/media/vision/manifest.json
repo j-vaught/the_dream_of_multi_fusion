@@ -4,8 +4,8 @@
       "poster": {
         "height": 1500,
         "path": "presentation/media/vision/vision_only_correct_vs_ground_truth_poster.png",
-        "sha256": "4d3eafc075a240d0e498442358b34a715622580dd02a69d017196f02b677c626",
-        "size_bytes": 2273050,
+        "sha256": "5fb65d730c9f8a13319ba36a45ba3984133169577de435beb012ebb07ce6b06d",
+        "size_bytes": 2273061,
         "width": 1800
       },
       "selected_frame": {
@@ -47,7 +47,7 @@
             "score": 0.22126361727714539
           }
         ],
-        "poster_rgb_sha256": "f80458a7a1b3d930b7c039a94ff217d1c657b4a8abfb2e9e3aec6ceea9f7fdca",
+        "poster_rgb_sha256": "4084b74bd68d4d552eb65a0c9cbde61cfd5fbf3610e43dca654809e5f1597b4a",
         "source_video_frame": 0
       },
       "timeline": {
@@ -65,12 +65,12 @@
           "frame_count": 300,
           "height": 1500,
           "r_frame_rate": "60/1",
-          "size_bytes": 938630,
+          "size_bytes": 938030,
           "width": 1800
         },
         "path": "presentation/media/vision/vision_only_correct_vs_ground_truth.mp4",
-        "sha256": "9dea62ce1a77ee17ff6acd5f302797d31c3d1d9f3e4548cc2ee49bf229402584",
-        "size_bytes": 938630
+        "sha256": "65b41ed2e287b9271a271b161d4e05356631828614a0439d78c41a93e33ea257",
+        "size_bytes": 938030
       }
     },
     "false_positive_episodes": {
@@ -486,11 +486,11 @@
     },
     "ground_truth": {
       "boat": {
-        "color": "#FF00FF",
+        "color": "#FFFFFF",
         "line_style": "dashed"
       },
       "buoy": {
-        "color": "#FFFF00",
+        "color": "#FFFFFF",
         "line_style": "dashed"
       }
     },
