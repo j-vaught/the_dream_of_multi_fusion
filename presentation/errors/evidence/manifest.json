@@ -413,7 +413,7 @@
           "track_id": "boat"
         },
         "evidence_image": "localization_below_0_5/01_cf_000378_radar_bounded_crops.png",
-        "evidence_sha256": "1e5d450af31196a7fe77ec1fad6885c62b7bc8c2c397055d88db7edf6cf11a46",
+        "evidence_sha256": "fd2b53c117dedc378590be1b5d3191f740da406d4ca6be4178a93a1d708296f7",
         "output_size": [
           1600,
           1000
@@ -484,7 +484,7 @@
           "track_id": "boat"
         },
         "evidence_image": "localization_below_0_5/02_cf_000414_radar_confidence_gated.png",
-        "evidence_sha256": "597dc966c3a1ff05e83e8a2ee0115b90a6bd80d6e2e732fb0f5e9715271726d6",
+        "evidence_sha256": "4a1e0425683937dae0af5a204394ca8c84257df499e877df2417f7e22a33034b",
         "output_size": [
           1600,
           1000
@@ -555,7 +555,7 @@
           "track_id": "boat"
         },
         "evidence_image": "localization_below_0_5/03_cf_000341_vision_only_tiled.png",
-        "evidence_sha256": "e81b66681e28be371d52688266bc032616e4e142a9bc6334fcc60dc670ce555b",
+        "evidence_sha256": "2ab9d05fee346e244c34034b20779f96649c286c9e2850cd8e9f36eb39b0e9ff",
         "output_size": [
           1600,
           1000
@@ -950,7 +950,7 @@
           "track_id": "b4"
         },
         "evidence_image": "tiny_misses/01_cf_000119_all_final_methods.png",
-        "evidence_sha256": "a72c844d28e776d18b72cec74f8673519540b5779f96e08413127d010fcc6dc8",
+        "evidence_sha256": "d6a436f2ee8ed1ab93d85c38ca250ca105ba4e3d39deaf5003bf02ec6f8c233a",
         "output_size": [
           1600,
           1000
@@ -1005,7 +1005,7 @@
           "track_id": "b8"
         },
         "evidence_image": "tiny_misses/02_cf_000126_all_final_methods.png",
-        "evidence_sha256": "30b450dacf05218871103a6acf59314a9ef9ae7dc58fcf69b419d930cdaa1de7",
+        "evidence_sha256": "ecbda0fbde1e9219d6903e86bed615d66bf90d62be89a3f9da963d8660c10bfa",
         "output_size": [
           1600,
           1000
@@ -1060,7 +1060,7 @@
           "track_id": "b5"
         },
         "evidence_image": "tiny_misses/03_cf_000162_all_final_methods.png",
-        "evidence_sha256": "b6e922609f70d8644cbf8b9fd39e36fd11bd8f832216981822cf7ad3511645c7",
+        "evidence_sha256": "5e0c5a99d19666599ca83780ce4906d85cfed6bcb71dde7340c5412f90954564",
         "output_size": [
           1600,
           1000
@@ -1114,7 +1114,7 @@
         "boat": "#FF00FF",
         "buoy": "#FFFF00"
       },
-      "false_negative": "#FF00FF",
+      "false_negative": "#00FFFF",
       "false_positive": "#FF0000"
     },
     "false_negative_line_style": "dashed",

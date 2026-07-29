@@ -2,8 +2,14 @@ from __future__ import annotations
 
 import unittest
 
+from PIL import Image, ImageDraw
+
 from evaluate_detection_experiments import filter_predictions, match_frame
-from render_detection_experiment_videos import categorize_detections
+from render_detection_experiment_videos import (
+    FN_COLOR,
+    categorize_detections,
+    draw_dashed_rectangle,
+)
 from run_detection_experiments import (
     axis_positions,
     class_aware_nms,
@@ -84,6 +90,19 @@ class DetectionExperimentTest(unittest.TestCase):
         self.assertEqual(len(false_negatives), 1)
         self.assertEqual(true_positives[0]["label"], "boat")
         self.assertEqual(false_negatives[0]["class_name"], "buoy")
+
+    def test_false_negative_overlay_uses_color_without_x_symbol(self) -> None:
+        image = Image.new("RGB", (101, 101), "#000000")
+        draw_dashed_rectangle(
+            ImageDraw.Draw(image),
+            [10, 10, 90, 90],
+            FN_COLOR,
+            width=4,
+            dash_length=8,
+        )
+        self.assertEqual(FN_COLOR, "#00FFFF")
+        self.assertEqual(image.getpixel((10, 10)), (0, 255, 255))
+        self.assertEqual(image.getpixel((50, 50)), (0, 0, 0))
 
 
 if __name__ == "__main__":

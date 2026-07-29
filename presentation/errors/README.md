@@ -28,7 +28,7 @@ Selection occurs before image transfer. The build requests only the unique
 clean source PNGs needed by selected evidence and retains no unselected source
 frames in the evidence directory. Every rendered crop is $1600 \times 1000$
 pixels with no text overlay. False positives use solid red, false negatives use
-dashed magenta, correct boats use solid magenta, and correct buoys use solid
+dashed cyan, correct boats use solid magenta, and correct buoys use solid
 yellow.
 
 The manifest records input and output hashes, source and rendered coordinates,

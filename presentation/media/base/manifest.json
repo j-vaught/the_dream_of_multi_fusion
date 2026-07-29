@@ -126,7 +126,7 @@
         "ffprobe": {
           "format": {
             "format_name": "png_pipe",
-            "size": "1439142"
+            "size": "1435044"
           },
           "programs": [],
           "stream_groups": [],
@@ -149,15 +149,15 @@
           ]
         },
         "path": "vision_only_predictions.poster.png",
-        "sha256": "e41b3b518b81cff99b2515a36285adfaa06c5bc54f497a36dcbe08a49723ed9e"
+        "sha256": "c31c9d7ef4f505893583d00494bd03907da75d5a3d7620b0d397dc1e400f9016"
       },
       "source": {
         "ffprobe": {
           "format": {
-            "bit_rate": "191324972",
+            "bit_rate": "20467257",
             "duration": "15.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "358734324",
+            "size": "38376108",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -165,28 +165,28 @@
           "streams": [
             {
               "avg_frame_rate": "20/1",
-              "bit_rate": "191322420",
+              "bit_rate": "20465371",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
-              "coded_height": 3032,
-              "coded_width": 5320,
+              "coded_height": 1094,
+              "coded_width": 1920,
               "duration": "15.000000",
-              "height": 3032,
+              "height": 1094,
               "index": 0,
-              "level": 60,
+              "level": 42,
               "nb_frames": "300",
               "pix_fmt": "yuv420p",
-              "profile": "High",
+              "profile": "Main",
               "r_frame_rate": "20/1",
               "start_time": "0.000000",
               "time_base": "1/10240",
-              "width": 5320
+              "width": 1920
             }
           ]
         },
         "path": "08_exp1_vision_only_detections.mp4",
-        "sha256": "6a74f223caf5ea59daf1ec22a9f75bde94fa0eddedff56cccd08bd4ae85f12e7"
+        "sha256": "0e63eca70d7b80036acfc5bbd2f25f943fba4b39ba0461f54b4bc17743c83137"
       },
       "video": {
         "checks": {
@@ -201,10 +201,10 @@
         },
         "ffprobe": {
           "format": {
-            "bit_rate": "5594478",
+            "bit_rate": "5594033",
             "duration": "5.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "3496549",
+            "size": "3496271",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -212,7 +212,7 @@
           "streams": [
             {
               "avg_frame_rate": "60/1",
-              "bit_rate": "5587296",
+              "bit_rate": "5586857",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -233,11 +233,11 @@
           ]
         },
         "mp4_atom_offsets": {
-          "mdat": 4481,
+          "mdat": 4477,
           "moov": 32
         },
         "path": "vision_only_predictions.mp4",
-        "sha256": "4395e869382befde7d543d93e960ce079a4268389922b4b64a6f34886076eab3"
+        "sha256": "f173d9f368fd0de13bcd134943aa8d1ab2f88a44fd7398a654e022e193c59d1d"
       }
     },
     {
@@ -246,7 +246,7 @@
         "ffprobe": {
           "format": {
             "format_name": "png_pipe",
-            "size": "1440026"
+            "size": "1435044"
           },
           "programs": [],
           "stream_groups": [],
@@ -269,15 +269,15 @@
           ]
         },
         "path": "radar_gated_predictions.poster.png",
-        "sha256": "ca95518b1e3a42750084564c5c52ac7271d12b923ea2adf4e63c217d59ad060e"
+        "sha256": "c31c9d7ef4f505893583d00494bd03907da75d5a3d7620b0d397dc1e400f9016"
       },
       "source": {
         "ffprobe": {
           "format": {
-            "bit_rate": "191313088",
+            "bit_rate": "20465303",
             "duration": "15.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "358712041",
+            "size": "38372444",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -285,28 +285,28 @@
           "streams": [
             {
               "avg_frame_rate": "20/1",
-              "bit_rate": "191310536",
+              "bit_rate": "20463417",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
-              "coded_height": 3032,
-              "coded_width": 5320,
+              "coded_height": 1094,
+              "coded_width": 1920,
               "duration": "15.000000",
-              "height": 3032,
+              "height": 1094,
               "index": 0,
-              "level": 60,
+              "level": 42,
               "nb_frames": "300",
               "pix_fmt": "yuv420p",
-              "profile": "High",
+              "profile": "Main",
               "r_frame_rate": "20/1",
               "start_time": "0.000000",
               "time_base": "1/10240",
-              "width": 5320
+              "width": 1920
             }
           ]
         },
         "path": "09_exp2_radar_confidence_gated_detections.mp4",
-        "sha256": "74b5e2fff211639c95217d0710bd354b0ebb4d32eb230ae625011bb8f21867fe"
+        "sha256": "97216fb2c7b3843cc353231458699bf337aa05bcab8b4e7d2175195d0a081925"
       },
       "video": {
         "checks": {
@@ -321,10 +321,10 @@
         },
         "ffprobe": {
           "format": {
-            "bit_rate": "5593460",
+            "bit_rate": "5590499",
             "duration": "5.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "3495913",
+            "size": "3494062",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -332,7 +332,7 @@
           "streams": [
             {
               "avg_frame_rate": "60/1",
-              "bit_rate": "5586278",
+              "bit_rate": "5583323",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -353,11 +353,11 @@
           ]
         },
         "mp4_atom_offsets": {
-          "mdat": 4481,
+          "mdat": 4477,
           "moov": 32
         },
         "path": "radar_gated_predictions.mp4",
-        "sha256": "c1d454813212613dddab7e18119aa8938008d9a1c96b9075651d9e88b7e74924"
+        "sha256": "d72d528d6666178639c89e8c85b6ac051a87d7b13a07431761f0b47c8a7aec5c"
       }
     },
     {
@@ -366,7 +366,7 @@
         "ffprobe": {
           "format": {
             "format_name": "png_pipe",
-            "size": "1440622"
+            "size": "1433074"
           },
           "programs": [],
           "stream_groups": [],
@@ -389,15 +389,15 @@
           ]
         },
         "path": "radar_bounded_predictions.poster.png",
-        "sha256": "f7936270e1e2bd064ba81822dee99790390a46778bc7e6a77b5ed06f24030060"
+        "sha256": "6bfdccf735617631b96fdfbae1dec193314cecfee3ee6171200fe3ec220823cb"
       },
       "source": {
         "ffprobe": {
           "format": {
-            "bit_rate": "191346874",
+            "bit_rate": "20470632",
             "duration": "15.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "358775389",
+            "size": "38382436",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -405,28 +405,28 @@
           "streams": [
             {
               "avg_frame_rate": "20/1",
-              "bit_rate": "191344330",
+              "bit_rate": "20468746",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
-              "coded_height": 3032,
-              "coded_width": 5320,
+              "coded_height": 1094,
+              "coded_width": 1920,
               "duration": "15.000000",
-              "height": 3032,
+              "height": 1094,
               "index": 0,
-              "level": 60,
+              "level": 42,
               "nb_frames": "300",
               "pix_fmt": "yuv420p",
-              "profile": "High",
+              "profile": "Main",
               "r_frame_rate": "20/1",
               "start_time": "0.000000",
               "time_base": "1/10240",
-              "width": 5320
+              "width": 1920
             }
           ]
         },
         "path": "10_exp3_radar_bounded_detections.mp4",
-        "sha256": "a00d0470f415b8c01268aea36743ce4eb0876497f7c6d7b35b32fd884acc86d6"
+        "sha256": "d2904ad6d6a925dbc3077cf8bfc2e3749d0cea0249baae85af2a440e7f7290bd"
       },
       "video": {
         "checks": {
@@ -441,10 +441,10 @@
         },
         "ffprobe": {
           "format": {
-            "bit_rate": "5592004",
+            "bit_rate": "5593368",
             "duration": "5.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "3495003",
+            "size": "3495855",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -452,7 +452,7 @@
           "streams": [
             {
               "avg_frame_rate": "60/1",
-              "bit_rate": "5584841",
+              "bit_rate": "5586192",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -473,11 +473,11 @@
           ]
         },
         "mp4_atom_offsets": {
-          "mdat": 4469,
+          "mdat": 4477,
           "moov": 32
         },
         "path": "radar_bounded_predictions.mp4",
-        "sha256": "111699631c40fd27a1d773c5812cf572a0963b640b755ef26d0c1db7f915bbb3"
+        "sha256": "a33bce72796b57c7e9b491c608e107fc7475b581d985bf1e1cdaf39f08c8546b"
       }
     },
     {
@@ -486,7 +486,7 @@
         "ffprobe": {
           "format": {
             "format_name": "png_pipe",
-            "size": "1786030"
+            "size": "1726963"
           },
           "programs": [],
           "stream_groups": [],
@@ -509,15 +509,15 @@
           ]
         },
         "path": "zoom_vision_only.poster.png",
-        "sha256": "7e385cb0bc0097c98bc72bef189e2c30f86f7f567af9aa9be604c2750917929f"
+        "sha256": "8de24b1afff70812847db75dbdd11887d8fce3087ccec3eb6d7764e1fcd35508"
       },
       "source": {
         "ffprobe": {
           "format": {
-            "bit_rate": "23581732",
+            "bit_rate": "29836212",
             "duration": "15.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "44215748",
+            "size": "55942898",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -525,7 +525,7 @@
           "streams": [
             {
               "avg_frame_rate": "20/1",
-              "bit_rate": "23579821",
+              "bit_rate": "29834443",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -537,7 +537,7 @@
               "level": 50,
               "nb_frames": "300",
               "pix_fmt": "yuv420p",
-              "profile": "Main",
+              "profile": "High",
               "r_frame_rate": "20/1",
               "start_time": "0.000000",
               "time_base": "1/10240",
@@ -546,7 +546,7 @@
           ]
         },
         "path": "11_zoom_exp1_vision_only.mp4",
-        "sha256": "21afcd6001b156219226efe73f6b647700f7639988ae147edc43b7cf76c6ed84"
+        "sha256": "8c67e63947fe57171493619447517a0fec2f39f02a386958830ebb44a90b0c37"
       },
       "video": {
         "checks": {
@@ -561,10 +561,10 @@
         },
         "ffprobe": {
           "format": {
-            "bit_rate": "5598446",
+            "bit_rate": "5613019",
             "duration": "5.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "3499029",
+            "size": "3508137",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -572,7 +572,7 @@
           "streams": [
             {
               "avg_frame_rate": "60/1",
-              "bit_rate": "5591286",
+              "bit_rate": "5605859",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -597,7 +597,7 @@
           "moov": 32
         },
         "path": "zoom_vision_only.mp4",
-        "sha256": "c68e7173479bfaae937bff9f5b4b7036a8daba85c19d4b617d3720bd949034c8"
+        "sha256": "f52bad95d0e82bdca56673f8815e67c04634047aa24d0c96d1576045f25d2ada"
       }
     },
     {
@@ -606,7 +606,7 @@
         "ffprobe": {
           "format": {
             "format_name": "png_pipe",
-            "size": "1786030"
+            "size": "1725161"
           },
           "programs": [],
           "stream_groups": [],
@@ -629,15 +629,15 @@
           ]
         },
         "path": "zoom_radar_gated.poster.png",
-        "sha256": "7e385cb0bc0097c98bc72bef189e2c30f86f7f567af9aa9be604c2750917929f"
+        "sha256": "9798e5d1f47aca4716a47bf2286824bace0559f8073d7a45f80aa3b6c57545eb"
       },
       "source": {
         "ffprobe": {
           "format": {
-            "bit_rate": "23587945",
+            "bit_rate": "29875276",
             "duration": "15.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "44227398",
+            "size": "56016143",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -645,7 +645,7 @@
           "streams": [
             {
               "avg_frame_rate": "20/1",
-              "bit_rate": "23586022",
+              "bit_rate": "29873547",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -657,7 +657,7 @@
               "level": 50,
               "nb_frames": "300",
               "pix_fmt": "yuv420p",
-              "profile": "Main",
+              "profile": "High",
               "r_frame_rate": "20/1",
               "start_time": "0.000000",
               "time_base": "1/10240",
@@ -666,7 +666,7 @@
           ]
         },
         "path": "12_zoom_exp2_radar_gated.mp4",
-        "sha256": "f11034be340ea43cd14965b23fa452364c45471e15b913f42b8fd493e69436c8"
+        "sha256": "23f40a982ee08efc13f2087152362550ba684f6db7b9c77408a7c2249df65ad2"
       },
       "video": {
         "checks": {
@@ -681,10 +681,10 @@
         },
         "ffprobe": {
           "format": {
-            "bit_rate": "5599276",
+            "bit_rate": "5604083",
             "duration": "5.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "3499548",
+            "size": "3502552",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -692,7 +692,7 @@
           "streams": [
             {
               "avg_frame_rate": "60/1",
-              "bit_rate": "5592116",
+              "bit_rate": "5596923",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -717,7 +717,7 @@
           "moov": 32
         },
         "path": "zoom_radar_gated.mp4",
-        "sha256": "32773580b3506fd2fd4e424c63f61b12719b8511030792f47bddfa3fcb84e65c"
+        "sha256": "d44b3e7a37d286a23e63dbe4570c304012aabe780fcdc47d71e4caa086f579a1"
       }
     },
     {
@@ -726,7 +726,7 @@
         "ffprobe": {
           "format": {
             "format_name": "png_pipe",
-            "size": "1789094"
+            "size": "1730632"
           },
           "programs": [],
           "stream_groups": [],
@@ -749,15 +749,15 @@
           ]
         },
         "path": "zoom_radar_bounded.poster.png",
-        "sha256": "4ea9f90fee1d65d0f0dda0577876a6e478b5e4e60de73006ddb7d727727f9166"
+        "sha256": "caf069cfe72c4b09b094956db45f617e3fdc6b5d8169e6a24aff38e5bb2d37e4"
       },
       "source": {
         "ffprobe": {
           "format": {
-            "bit_rate": "23556917",
+            "bit_rate": "29862270",
             "duration": "15.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "44169221",
+            "size": "55991758",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -765,7 +765,7 @@
           "streams": [
             {
               "avg_frame_rate": "20/1",
-              "bit_rate": "23554994",
+              "bit_rate": "29860510",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -777,7 +777,7 @@
               "level": 50,
               "nb_frames": "300",
               "pix_fmt": "yuv420p",
-              "profile": "Main",
+              "profile": "High",
               "r_frame_rate": "20/1",
               "start_time": "0.000000",
               "time_base": "1/10240",
@@ -786,7 +786,7 @@
           ]
         },
         "path": "13_zoom_exp3_radar_bounded.mp4",
-        "sha256": "b30e07349ec95fc3adab9901516adb4eddb3bcd471b2244eef060d0ec9b18a76"
+        "sha256": "486c13109e1e64385a55a95f489c2ec087bcdbac1899ea0ff0caa6c157692d25"
       },
       "video": {
         "checks": {
@@ -801,10 +801,10 @@
         },
         "ffprobe": {
           "format": {
-            "bit_rate": "5603196",
+            "bit_rate": "5614704",
             "duration": "5.000000",
             "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
-            "size": "3501998",
+            "size": "3509190",
             "start_time": "0.000000"
           },
           "programs": [],
@@ -812,7 +812,7 @@
           "streams": [
             {
               "avg_frame_rate": "60/1",
-              "bit_rate": "5596017",
+              "bit_rate": "5607524",
               "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
               "codec_name": "h264",
               "codec_type": "video",
@@ -837,7 +837,7 @@
           "moov": 32
         },
         "path": "zoom_radar_bounded.mp4",
-        "sha256": "db429f2c13db8ea973193aea5552fe07b397205a1c7c536908a82bf304852d29"
+        "sha256": "ef50ef269f3f4455b1172ef3a661506799f9cd4fdafd9d9c4b6fb91faaf22783"
       }
     }
   ],

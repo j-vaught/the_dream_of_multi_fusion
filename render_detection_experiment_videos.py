@@ -17,7 +17,7 @@ from run_detection_experiments import box_iou, normalize_label
 TP_BOAT_COLOR = "#FF00FF"
 TP_BUOY_COLOR = "#FFFF00"
 FP_COLOR = "#FF0000"
-FN_COLOR = "#FF00FF"
+FN_COLOR = "#00FFFF"
 
 
 def parse_args() -> argparse.Namespace:
@@ -149,8 +149,6 @@ def draw_dashed_rectangle(
     for start in range(y1, y2 + 1, dash_length * 2):
         drawing.line((x1, start, x1, min(start + dash_length, y2)), fill=color, width=width)
         drawing.line((x2, start, x2, min(start + dash_length, y2)), fill=color, width=width)
-    drawing.line((x1, y1, x2, y2), fill=color, width=max(2, width // 2))
-    drawing.line((x1, y2, x2, y1), fill=color, width=max(2, width // 2))
 
 
 def draw_evaluation(
